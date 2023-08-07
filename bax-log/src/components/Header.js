@@ -18,7 +18,7 @@ export const Header = () => {
                 id='github-button'
                 color='inherit'
                 onClick={() =>
-                  (window.location.href = 'https://github.com/hellomuthu23/planning-poker')
+                  (window.location.href = 'https://github.com/kaanadalilar/BaX-Log_Scrum_Poker_App')
                 }
               >
                 <GithubIcon></GithubIcon>
