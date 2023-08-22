@@ -21,31 +21,41 @@ function PokerPage() {
                                 <div className="moon">
                                     <PokerBacklogTable />
                                 </div>
-                                <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-                                    <div style={{ width: 1277, height: 715, left: 365, top: 0, position: 'absolute', borderTopLeftRadius: 7.69, borderTopRightRadius: 30, borderBottomRightRadius: 30 }}>
-                                        <img style={{ width: 1277, height: 715, left: 0, top: 0, position: 'absolute', borderTopLeftRadius: 7.69 }} src={PokerTable} />
-                                        <div style={{ width: 72.40, height: 68.97, left: 492.70, top: 78.69, position: 'absolute' }}>
-                                            <div style={{ width: 60.33, height: 57.48, left: 6.03, top: 5.75, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        </div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 1047.74, top: 328.36, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon> </div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 212.16, top: 517.79, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 498.73, top: 579.97, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 714.92, top: 575.11, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 987.41, top: 517.79, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 151.83, top: 328.36, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 987.41, top: 147.66, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 212.16, top: 147.66, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 714.92, top: 84.52, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 480.63, top: 53.43, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Kaan</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 193.06, top: 113.66, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Tuna</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 194.06, top: 586.77, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>İbrahim</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 133.73, top: 293.38, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Kübra</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 698.83, top: 53.43, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Beyza</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 477.62, top: 641.17, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Olcay</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 698.83, top: 638.25, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Gökhan</div>
+                                <div className="sun" style={{ width: '100%', height: '100%', position: 'relative' }}>
+                                    <div style={{ width: 1477, height: 715, left: 100, top: 0, position: 'absolute', borderTopLeftRadius: 7.69, borderTopRightRadius: 30, borderBottomRightRadius: 30 }}>
+                                        <img style={{ width: 1477, height: 715, left: 0, top: 0, position: 'absolute', borderTopLeftRadius: 7.69 }} src={PokerTable} />
+
+                                        <div style={{ width: 60.33, height: 57.48, left: 260, top: 170, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                        <div style={{ width: 60.33, height: 57.48, left: 490, top: 90, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                        <div style={{ width: 60.33, height: 57.48, left: 710, top: 90, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                        <div style={{ width: 60.33, height: 57.48, left: 920, top: 90, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                        <div style={{ width: 60.33, height: 57.48, left: 1150, top: 170, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                        <div style={{ width: 60.33, height: 57.48, left: 1210, top: 329, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon> </div>
+                                        <div style={{ width: 60.33, height: 57.48, left: 1150, top: 517.79, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                        <div style={{ width: 60.33, height: 57.48, left: 920, top: 570, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                        <div style={{ width: 60.33, height: 57.48, left: 710, top: 570, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                        <div style={{ width: 60.33, height: 57.48, left: 490, top: 570, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                        <div style={{ width: 60.33, height: 57.48, left: 260, top: 480, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                        <div style={{ width: 60.33, height: 57.48, left: 205, top: 329, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+
+                                        <div style={{ width: 95.52, height: 25.26, left: 240, top: 130, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Tuna</div>
+                                        <div style={{ width: 95.52, height: 25.26, left: 470, top: 55, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Kaan</div>
+                                        <div style={{ width: 95.52, height: 25.26, left: 690, top: 55, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Beyza</div>
+                                        <div style={{ width: 95.52, height: 25.26, left: 900, top: 55, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Berke</div>
+                                        <div style={{ width: 95.52, height: 25.26, left: 1130, top: 130, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Esin</div>
+                                        <div style={{ width: 95.52, height: 25.26, left: 1190, top: 294, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Hüseyin</div>
                                         <div style={{ width: 95.52, height: 25.26, left: 969.31, top: 583.85, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Onur</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 1029.64, top: 290.47, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Hüseyin</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 969.31, top: 113.66, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Esin</div>
+                                        <div style={{ width: 95.52, height: 25.26, left: 969.31, top: 583.85, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Sude</div>
+                                        <div style={{ width: 95.52, height: 25.26, left: 698.83, top: 638.25, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Gökhan</div>
+                                        <div style={{ width: 95.52, height: 25.26, left: 477.62, top: 641.17, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Olcay</div>
+                                        <div style={{ width: 95.52, height: 25.26, left: 194.06, top: 586.77, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>İbrahim</div>
+                                        <div style={{ width: 95.52, height: 25.26, left: 185, top: 294, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Kübra</div>
+
+
+
+
+
+
 
                                         <div style={{ width: 43.50, height: 56.35, left: 345, top: 270, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: '0 0' }}>
                                             <div style={{ width: 43.21, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
@@ -139,14 +149,14 @@ function PokerPage() {
                                             </div>
                                         </div>
 
-                                        <div style={{ width: 53.29, height: 69.95, left: 219.20, top: 715, position: 'absolute', background: '#152A96' }} />
-                                        <div style={{ width: 171, height: 46, left: 196, top: 651, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>Pick a card</div>
+
+                                        <div style={{ width: 171, height: 46, left: 150, top: 651, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>Pick a card</div>
                                     </div>
 
 
-                                    <img style={{ width: 1277, height: 170, left: 365, top: 710, position: 'absolute', borderTopLeftRadius: 7.69 }} src={UnderPokerTable} />
+                                    <img style={{ width: 1477, height: 150, left: 100, top: 710, position: 'absolute', borderTopLeftRadius: 7.69 }} src={UnderPokerTable} />
 
-                                    <div style={{ width: 52, height: 70, left: 590, top: 710, position: 'absolute' }}>
+                                    <div style={{ width: 52, height: 70, left: 280, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
                                             <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>1</div>
@@ -156,7 +166,7 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 667, top: 710, position: 'absolute' }}>
+                                    <div style={{ width: 52, height: 70, left: 360, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
                                             <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>2</div>
@@ -166,7 +176,7 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 744, top: 710, position: 'absolute' }}>
+                                    <div style={{ width: 52, height: 70, left: 440, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
                                             <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>3</div>
@@ -176,7 +186,7 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 821, top: 710, position: 'absolute' }}>
+                                    <div style={{ width: 52, height: 70, left: 520, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
                                             <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>5</div>
@@ -186,7 +196,7 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 897, top: 710, position: 'absolute' }}>
+                                    <div style={{ width: 52, height: 70, left: 600, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
                                             <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>8</div>
@@ -196,7 +206,7 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 974, top: 710, position: 'absolute' }}>
+                                    <div style={{ width: 52, height: 70, left: 680, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
                                             <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>13</div>
@@ -206,7 +216,7 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 1051, top: 710, position: 'absolute' }}>
+                                    <div style={{ width: 52, height: 70, left: 760, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
                                             <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>21</div>
@@ -216,7 +226,7 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 1128, top: 710, position: 'absolute' }}>
+                                    <div style={{ width: 52, height: 70, left: 840, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
                                             <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>34</div>
@@ -226,7 +236,7 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 1205, top: 710, position: 'absolute' }}>
+                                    <div style={{ width: 52, height: 70, left: 920, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
                                             <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>55</div>
@@ -236,7 +246,7 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 1281, top: 710, position: 'absolute' }}>
+                                    <div style={{ width: 52, height: 70, left: 1000, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
                                             <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>89</div>
@@ -245,7 +255,7 @@ function PokerPage() {
                                             <div style={{ width: 29.81, height: 34.83, left: 0.17, top: 0, position: 'absolute', background: '#F24822' }}></div>
                                         </div>
                                     </div>
-                                    <div style={{ width: 52, height: 70, left: 1358, top: 710, position: 'absolute' }}>
+                                    <div style={{ width: 52, height: 70, left: 1080, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
                                             <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>?</div>
@@ -255,7 +265,7 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 932, height: 20, paddingLeft: 15.39, paddingRight: 15.39, paddingTop: 9.62, paddingBottom: 9.62, left: 375, top: 9, position: 'absolute', opacity: 0.70, background: '#667085', boxShadow: '0px 0.9615941643714905px 1.923188328742981px rgba(16, 24, 40, 0.05)', borderRadius: 7.69, overflow: 'hidden', border: '0.48px rgba(241.64, 241.64, 241.64, 0) solid', justifyContent: 'center', alignItems: 'center', gap: 7.69, display: 'inline-flex' }}>
+                                    <div style={{ width: 932, height: 20, paddingLeft: 2, paddingRight: 15.39, paddingTop: 9.62, paddingBottom: 9.62, left: 320, top: 9, position: 'absolute', opacity: 0.70, background: '#667085', boxShadow: '0px 0.9615941643714905px 1.923188328742981px rgba(16, 24, 40, 0.05)', borderRadius: 7.69, overflow: 'hidden', border: '0.48px rgba(241.64, 241.64, 241.64, 0) solid', justifyContent: 'center', alignItems: 'center', gap: 7.69, display: 'inline-flex' }}>
                                         <div style={{ width: 19.23, height: 19.23, position: 'relative' }}>
                                             <div style={{ width: 11.22, height: 11.22, left: 4.01, top: 4.01, position: 'absolute', border: '0.80px white solid' }}></div>
                                         </div>
