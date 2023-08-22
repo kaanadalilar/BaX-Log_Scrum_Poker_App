@@ -13,7 +13,7 @@ export const Header = () => {
       <AppBar position='sticky' className='AppBar'>
         <AppToolbar>
           <div className='HeaderContainer'>
-            <div>
+            <div className='HeaderLeftContainer'>
               <Button
                 id='github-button'
                 color='inherit'
