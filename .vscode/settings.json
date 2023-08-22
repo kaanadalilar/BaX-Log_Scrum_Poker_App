@@ -1,6 +1,10 @@
 {
+<<<<<<< Updated upstream
     "java.compile.nullAnalysis.mode": "automatic",
     "java.project.sourcePaths": [
         "bax-log"
     ]
+=======
+    "java.compile.nullAnalysis.mode": "automatic"
+>>>>>>> Stashed changes
 }
