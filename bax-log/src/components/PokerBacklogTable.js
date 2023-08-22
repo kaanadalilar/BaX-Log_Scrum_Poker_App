@@ -33,6 +33,19 @@ function createData(status, head, description) {
 const rows = [
     createData("#305", "active", "Hop"),
     createData("#452", "passive", "lazyy"),
+    createData("#305", "active", "Hop"),
+    createData("#452", "passive", "lazyy"),
+    createData("#305", "active", "Hop"),
+    createData("#452", "passive", "lazyy"),
+    createData("#305", "active", "Hop"),
+    createData("#452", "passive", "lazyy"),
+    createData("#305", "active", "Hop"),
+    createData("#452", "passive", "lazyy"),
+    createData("#305", "active", "Hop"),
+    createData("#452", "passive", "lazyy"),
+    createData("#305", "active", "Hop"),
+    createData("#452", "passive", "lazyy"),
+
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -116,12 +129,14 @@ function EnhancedTableHead(props) {
                         align={headCell.numeric ? 'right' : 'left'}
                         padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}
-                        sx={{ width: 
-                          headCell.id === 'status' ? '%5' : 
-                          headCell.id === 'heading' ? '%15' :
-                          headCell.id === 'description' ? '%80' :
-                          
-                          headCell.width }}
+                        sx={{
+                            width:
+                                headCell.id === 'status' ? '%5' :
+                                    headCell.id === 'heading' ? '%15' :
+                                        headCell.id === 'description' ? '%80' :
+
+                                            headCell.width
+                        }}
 
 
                     >
