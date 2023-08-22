@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import PokerTable from "../components/poker_table.jpg";
 import PokerBacklogTable from "../components/PokerBacklogTable";
+import UnderPokerTable from "../components/under_poker_table.png";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import "./PokerPage.css";
 
@@ -45,10 +46,105 @@ function PokerPage() {
                                         <div style={{ width: 95.52, height: 25.26, left: 969.31, top: 583.85, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Onur</div>
                                         <div style={{ width: 95.52, height: 25.26, left: 1029.64, top: 290.47, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Hüseyin</div>
                                         <div style={{ width: 95.52, height: 25.26, left: 969.31, top: 113.66, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Esin</div>
+
+                                        <div style={{ width: 43.50, height: 56.35, left: 345, top: 270, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: '0 0' }}>
+                                            <div style={{ width: 43.21, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                <div style={{ width: 43.21, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                <div style={{ width: 18.98, height: 18.88, left: 0, top: 0.43, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                            </div>
+                                            <div style={{ width: 25.08, height: 28.18, left: 18.42, top: 28.18, position: 'absolute' }}>
+                                                <div style={{ width: 24.94, height: 28.04, left: 0.14, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                            </div>
+                                        </div>
+                                        <div style={{ width: 44.24, height: 55.37, left: 506.78, top: 218.58, position: 'absolute' }}>
+                                            <div style={{ width: 43.95, height: 55.37, left: 0, top: 0, position: 'absolute' }}>
+                                                <div style={{ width: 43.95, height: 55.37, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+
+                                                <div style={{ width: 19.31, height: 18.55, left: 0, top: 0.42, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                            </div>
+                                            <div style={{ width: 25.51, height: 27.69, left: 18.73, top: 27.69, position: 'absolute' }}>
+                                                <div style={{ width: 25.36, height: 27.55, left: 0.15, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                            </div>
+                                        </div>
+                                        <div style={{ width: 44.24, height: 55.37, left: 715.92, top: 218.58, position: 'absolute' }}>
+                                            <div style={{ width: 43.95, height: 55.37, left: 0, top: 0, position: 'absolute' }}>
+                                                <div style={{ width: 43.95, height: 55.37, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                <div style={{ width: 19.31, height: 18.55, left: 0, top: 0.42, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                            </div>
+                                            <div style={{ width: 25.51, height: 27.69, left: 18.73, top: 27.69, position: 'absolute' }}>
+                                                <div style={{ width: 25.36, height: 27.55, left: 0.15, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                            </div>
+                                        </div>
+                                        <div style={{ width: 42.74, height: 57.31, left: 905, top: 378.39, position: 'absolute', transform: 'rotate(-90deg)', transformOrigin: '0 0' }}>
+                                            <div style={{ width: 42.46, height: 57.31, left: 0, top: 0, position: 'absolute' }}>
+                                                <div style={{ width: 42.46, height: 57.31, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                <div style={{ width: 18.65, height: 19.20, left: 0, top: 0.44, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                            </div>
+                                            <div style={{ width: 24.65, height: 28.66, left: 18.10, top: 28.66, position: 'absolute' }}>
+                                                <div style={{ width: 24.51, height: 28.51, left: 0.14, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                            </div>
+                                        </div>
+                                        <div style={{ width: 44.15, height: 67.88, left: 385, top: 332.16, position: 'absolute', transform: 'rotate(90deg)', transformOrigin: '0 0' }}>
+                                            <div style={{ width: 43.86, height: 67.88, left: 0, top: 0, position: 'absolute' }}>
+                                                <div style={{ width: 43.86, height: 67.88, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                <div style={{ width: 19.27, height: 22.74, left: 0, top: 0.52, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                            </div>
+                                            <div style={{ width: 25.46, height: 33.94, left: 18.69, top: 33.94, position: 'absolute' }}>
+                                                <div style={{ width: 25.31, height: 33.77, left: 0.15, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                            </div>
+                                        </div>
+                                        <div style={{ width: 46.47, height: 56.35, left: 380, top: 400, position: 'absolute', transform: 'rotate(44.01deg)', transformOrigin: '0 0' }}>
+                                            <div style={{ width: 46.16, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                <div style={{ width: 46.16, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                <div style={{ width: 20.28, height: 18.88, left: 0, top: 0.43, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                            </div>
+                                            <div style={{ width: 26.79, height: 28.18, left: 19.67, top: 28.18, position: 'absolute' }}>
+                                                <div style={{ width: 26.64, height: 28.04, left: 0.15, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                            </div>
+                                        </div>
+                                        <div style={{ width: 43.50, height: 56.35, left: 855, top: 437, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: '0 0' }}>
+                                            <div style={{ width: 43.21, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                <div style={{ width: 43.21, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                <div style={{ width: 18.98, height: 18.88, left: 0, top: 0.43, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                            </div>
+                                            <div style={{ width: 25.08, height: 28.18, left: 18.42, top: 28.18, position: 'absolute' }}>
+                                                <div style={{ width: 24.94, height: 28.04, left: 0.14, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                            </div>
+                                        </div>
+                                        <div style={{ width: 43.50, height: 56.35, left: 900, top: 240, position: 'absolute', transform: 'rotate(45deg)', transformOrigin: '0 0' }}>
+                                            <div style={{ width: 43.21, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                <div style={{ width: 43.21, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                <div style={{ width: 18.98, height: 18.88, left: 0, top: 0.43, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                            </div>
+                                            <div style={{ width: 25.08, height: 28.18, left: 18.42, top: 28.18, position: 'absolute' }}>
+                                                <div style={{ width: 24.94, height: 28.04, left: 0.14, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                            </div>
+                                        </div><div style={{ width: 44.24, height: 55.37, left: 715.92, top: 440, position: 'absolute' }}>
+                                            <div style={{ width: 43.95, height: 57, left: 0, top: 0, position: 'absolute' }}>
+                                                <div style={{ width: 43.95, height: 57, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                <div style={{ width: 19.31, height: 18.55, left: 0, top: 0.42, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                            </div>
+                                            <div style={{ width: 25.51, height: 27.69, left: 18.73, top: 27.69, position: 'absolute' }}>
+                                                <div style={{ width: 25.36, height: 27.55, left: 0.15, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                            </div>
+                                        </div>
+
+                                        <div style={{ width: 44, height: 57, left: 506.78, top: 440, position: 'absolute' }}>
+                                            <div style={{ width: 43.71, height: 57, left: 0, top: 0, position: 'absolute' }}>
+                                                <div style={{ width: 43.71, height: 57, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                <div style={{ width: 19.20, height: 19.10, left: 0, top: 0.43, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                            </div>
+                                            <div style={{ width: 25.37, height: 28.50, left: 18.63, top: 28.50, position: 'absolute' }}>
+                                                <div style={{ width: 25.22, height: 28.36, left: 0.15, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                            </div>
+                                        </div>
+
                                     </div>
+
+
+
                                 </div>
                             </div>
-
 
                         </div>
                     </div>
