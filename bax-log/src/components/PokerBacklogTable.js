@@ -33,29 +33,6 @@ function createData(status, head, description) {
 const rows = [
     createData("#305", "active", "Hop"),
     createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-    createData("#452", "passive", "lazyy"),
-
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -358,10 +335,8 @@ export default function EnhancedTable() {
                                         >
                                             {row.head}
                                         </TableCell>
-                                        <TableCell align="right">{row.calories}</TableCell>
-                                        <TableCell align="right">{row.fat}</TableCell>
-                                        <TableCell align="right">{row.carbs}</TableCell>
-                                        <TableCell align="right">{row.protein}</TableCell>
+                                        <TableCell align="right">{row.status}</TableCell>
+                                        <TableCell align="right">{row.description}</TableCell>
                                     </TableRow>
                                 );
                             })}
@@ -387,13 +362,11 @@ export default function EnhancedTable() {
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
-
                 />
             </Paper>
             <FormControlLabel
                 control={<Switch checked={dense} onChange={handleChangeDense} />}
                 label="Dense padding"
-
             />
         </Box>
     );
