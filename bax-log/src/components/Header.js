@@ -13,7 +13,7 @@ export const Header = () => {
       <AppBar position='sticky' className='AppBar'>
         <AppToolbar>
           <div className='HeaderContainer'>
-            <div className='HeaderLeftContainer'>
+            <div>
               <Button
                 id='github-button'
                 color='inherit'
@@ -23,7 +23,6 @@ export const Header = () => {
               >
                 <GithubIcon></GithubIcon>
               </Button>
-              <h1 className='HeaderTitle'>{BAX-LOG}</h1>
             </div>
           </div>
         </AppToolbar>
