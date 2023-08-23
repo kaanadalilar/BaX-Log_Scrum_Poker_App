@@ -22,7 +22,7 @@ function PokerPage() {
                                     <PokerBacklogTable />
                                 </div>
                                 <div className="sun" style={{ width: '100%', height: '100%', position: 'relative' }}>
-                                    <div style={{ width: 1477, height: 715, left: 100, top: 0, position: 'absolute', borderTopLeftRadius: 7.69, borderTopRightRadius: 30, borderBottomRightRadius: 30 }}>
+                                    <div style={{ width: 1477, height: 715, left: 0, top: 0, position: 'absolute', borderTopLeftRadius: 7.69, borderTopRightRadius: 30, borderBottomRightRadius: 30 }}>
                                         <img style={{ width: 1477, height: 715, left: 0, top: 0, position: 'absolute', borderTopLeftRadius: 7.69 }} src={PokerTable} />
 
                                         <div style={{ width: 60.33, height: 57.48, left: 260, top: 170, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
@@ -154,7 +154,7 @@ function PokerPage() {
                                     </div>
 
 
-                                    <img style={{ width: 1477, height: 150, left: 100, top: 710, position: 'absolute', borderTopLeftRadius: 7.69 }} src={UnderPokerTable} />
+                                    <img style={{ width: 1477, height: 150, left: 0, top: 710, position: 'absolute', borderTopLeftRadius: 7.69 }} src={UnderPokerTable} />
 
                                     <div style={{ width: 52, height: 70, left: 280, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>

@@ -1,9 +1,9 @@
-body, html {
-    height: 100%; 
+body,
+html {
+    height: 100%;
     margin: 0;
     padding: 0;
-  }
-  
+}
 
 .title {
     justify-content: center;
@@ -22,7 +22,7 @@ body, html {
 }
 
 .moon {
-    width: calc(21% - 1px);
+    width: 29.7%;
     height: 100%;
     position: relative;
     padding: 0;
@@ -30,7 +30,7 @@ body, html {
 }
 
 .sun {
-    width: calc(79% + 1px);
+    width: 70.3%;
     height: 100%;
     position: relative;
     padding: 0;
@@ -38,7 +38,7 @@ body, html {
 }
 
 img {
-    width: 100%; 
-    height: auto; 
-    display: block; 
+    width: 100%;
+    height: auto;
+    display: block;
 }
