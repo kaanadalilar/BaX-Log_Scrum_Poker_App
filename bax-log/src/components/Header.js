@@ -23,6 +23,7 @@ export const Header = () => {
               >
                 <GithubIcon></GithubIcon>
               </Button>
+              <h1 className='HeaderTitle'>{BAX-LOG}</h1>
             </div>
           </div>
         </AppToolbar>
