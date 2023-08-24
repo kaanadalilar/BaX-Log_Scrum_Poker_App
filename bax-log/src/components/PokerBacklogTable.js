@@ -3,22 +3,23 @@ import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
 
-    { field: 'status', headerName: 'Status', width: 90 },
-    { field: 'header', headerName: 'Header', width: 90 },
-    { field: 'description', headerName: 'Description', width: 150 },
+    { field: 'status', headerName: <strong>{'Status'}</strong>, width: 90 },
+    { field: 'header', headerName: <strong>{'Header'}</strong>, width: 90 },
+    { field: 'description', headerName: <strong>{'Description'}</strong>, width: 150 },
 ];
 
 const rows = [
     { id: 1, status: 'Active', header: '#234', description: "Task description will be here" },
-    { id: 2, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 3, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 4, status: 'Active', header: '#234', description: "Task description will be here" },
-    { id: 5, status: 'Passive', header: '#234', description: "Task description will be here" },
+    { id: 2, status: 'Passive', header: '#235', description: "Task description will be here" },
+    { id: 3, status: 'Passive', header: '#236', description: "Task description will be here" },
+    { id: 4, status: 'Active', header: '#237', description: "Task description will be here" },
+    { id: 5, status: 'Passive', header: '#238', description: "Task description will be here" },
     { id: 6, status: 'Passive', header: '#584', description: "Task description will be here" },
-    { id: 7, status: 'Active', header: '#234', description: "Task description will be here" },
-    { id: 8, status: 'Passive', header: '#234', description: "Task description will be here" },
+    { id: 7, status: 'Active', header: '#239', description: "Task description will be here" },
+    { id: 8, status: 'Passive', header: '#240', description: "Task description will be here" },
     { id: 9, status: 'Active', header: '#234', description: "Task description will be here" },
     { id: 10, status: 'Passive', header: '#234', description: "Task description will be here" },
+    { id: 11, status: 'Passive', header: '#234', description: "Task description will be here" },
     { id: 12, status: 'Active', header: '#234', description: "Task description will be here" },
     { id: 13, status: 'Passive', header: '#234', description: "Task description will be here" },
     { id: 14, status: 'Passive', header: '#234', description: "Task description will be here" },

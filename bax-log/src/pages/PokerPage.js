@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Button, Container, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import PokerTable from "../components/poker_table.jpg";
@@ -179,13 +179,10 @@ function PokerPage() {
                 setDiv89Clicked(false);
                 setDivQMClicked(true);
                 break;
-
             default:
                 break;
         }
     };
-
-
 
     return (
         <div className="main">
@@ -353,10 +350,9 @@ function PokerPage() {
 
                                     <img style={{ width: 1477, height: 150, left: 0, top: 710, position: 'absolute', borderTopLeftRadius: 7.69 }} src={UnderPokerTable} />
 
-                                    <div style={{ width: 52, height: 70, left: 180, top: 710, position: 'absolute' }}>
+                                    <div onClick={() => handleDivClick(1)} style={{ width: 52, height: 70, left: 180, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
-                                            <div
-                                                onClick={() => handleDivClick(1)} style={{ backgroundColor: div1Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                            <div style={{ backgroundColor: div1Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>1</div>
                                         </div>
                                         <div style={{ width: 29.98, height: 35, left: 22.02, top: 35, position: 'absolute' }}>
@@ -364,9 +360,9 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 260, top: 710, position: 'absolute' }}>
+                                    <div onClick={() => handleDivClick(2)} style={{ width: 52, height: 70, left: 260, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
-                                            <div onClick={() => handleDivClick(2)} style={{ backgroundColor: div2Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                            <div style={{ backgroundColor: div2Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>2</div>
                                         </div>
                                         <div style={{ width: 29.98, height: 35, left: 22.02, top: 35, position: 'absolute' }}>
@@ -374,9 +370,9 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 340, top: 710, position: 'absolute' }}>
+                                    <div onClick={() => handleDivClick(3)} style={{ width: 52, height: 70, left: 340, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
-                                            <div onClick={() => handleDivClick(3)} style={{ backgroundColor: div3Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                            <div style={{ backgroundColor: div3Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>3</div>
                                         </div>
                                         <div style={{ width: 29.98, height: 35, left: 22.02, top: 35, position: 'absolute' }}>
@@ -384,9 +380,9 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 420, top: 710, position: 'absolute' }}>
+                                    <div onClick={() => handleDivClick(5)} style={{ width: 52, height: 70, left: 420, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
-                                            <div onClick={() => handleDivClick(5)} style={{ backgroundColor: div5Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                            <div style={{ backgroundColor: div5Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>5</div>
                                         </div>
                                         <div style={{ width: 29.98, height: 35, left: 22.02, top: 35, position: 'absolute' }}>
@@ -394,9 +390,9 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 500, top: 710, position: 'absolute' }}>
+                                    <div onClick={() => handleDivClick(8)} style={{ width: 52, height: 70, left: 500, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
-                                            <div onClick={() => handleDivClick(8)} style={{ backgroundColor: div8Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                            <div style={{ backgroundColor: div8Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>8</div>
                                         </div>
                                         <div style={{ width: 29.98, height: 35, left: 22.02, top: 35, position: 'absolute' }}>
@@ -404,9 +400,9 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 580, top: 710, position: 'absolute' }}>
+                                    <div onClick={() => handleDivClick(13)} style={{ width: 52, height: 70, left: 580, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
-                                            <div onClick={() => handleDivClick(13)} style={{ backgroundColor: div13Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                            <div style={{ backgroundColor: div13Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>13</div>
                                         </div>
                                         <div style={{ width: 29.98, height: 35, left: 22.02, top: 35, position: 'absolute' }}>
@@ -414,9 +410,9 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 660, top: 710, position: 'absolute' }}>
+                                    <div onClick={() => handleDivClick(21)} style={{ width: 52, height: 70, left: 660, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
-                                            <div onClick={() => handleDivClick(21)} style={{ backgroundColor: div21Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                            <div style={{ backgroundColor: div21Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>21</div>
                                         </div>
                                         <div style={{ width: 29.98, height: 35, left: 22.02, top: 35, position: 'absolute' }}>
@@ -424,9 +420,9 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 740, top: 710, position: 'absolute' }}>
+                                    <div onClick={() => handleDivClick(34)} style={{ width: 52, height: 70, left: 740, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
-                                            <div onClick={() => handleDivClick(34)} style={{ backgroundColor: div34Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                            <div style={{ backgroundColor: div34Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>34</div>
                                         </div>
                                         <div style={{ width: 29.98, height: 35, left: 22.02, top: 35, position: 'absolute' }}>
@@ -434,9 +430,9 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 820, top: 710, position: 'absolute' }}>
+                                    <div onClick={() => handleDivClick(55)} style={{ width: 52, height: 70, left: 820, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
-                                            <div onClick={() => handleDivClick(55)} style={{ backgroundColor: div55Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                            <div style={{ backgroundColor: div55Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>55</div>
                                         </div>
                                         <div style={{ width: 29.98, height: 35, left: 22.02, top: 35, position: 'absolute' }}>
@@ -444,9 +440,9 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 900, top: 710, position: 'absolute' }}>
+                                    <div onClick={() => handleDivClick(89)} style={{ width: 52, height: 70, left: 900, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
-                                            <div onClick={() => handleDivClick(89)} style={{ backgroundColor: div89Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                            <div style={{ backgroundColor: div89Clicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>89</div>
                                         </div>
                                         <div style={{ width: 29.98, height: 35, left: 22.02, top: 35, position: 'absolute' }}>
@@ -454,9 +450,9 @@ function PokerPage() {
                                         </div>
                                     </div>
 
-                                    <div style={{ width: 52, height: 70, left: 980, top: 710, position: 'absolute' }}>
+                                    <div onClick={() => handleDivClick(144)} style={{ width: 52, height: 70, left: 980, top: 710, position: 'absolute' }}>
                                         <div style={{ width: 51.65, height: 70, left: 0, top: 0, position: 'absolute' }}>
-                                            <div onClick={() => handleDivClick(144)} style={{ backgroundColor: divQMClicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                            <div style={{ backgroundColor: divQMClicked ? 'rgba(255, 0, 0, 0.8)' : "white", width: 51.65, height: 70, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                             <div style={{ width: 22.69, height: 23.45, left: 0, top: 0.53, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 18, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>?</div>
                                         </div>
                                         <div style={{ width: 29.98, height: 35, left: 22.02, top: 35, position: 'absolute' }}>
