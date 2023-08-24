@@ -7,8 +7,13 @@ import PokerBacklogTable from "../components/PokerBacklogTable";
 import UnderPokerTable from "../components/under_poker_table.png";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import "./PokerPage.css";
+import CountdownTimer from '../hooks/CountdownTimer';
 
 function PokerPage() {
+
+    const THREE_MINS = 3 * 60 * 1000;
+    const NOW_IN_MS = new Date().getTime();
+    const dateTimeAfterThreeMins = NOW_IN_MS + THREE_MINS;
 
     const [div1Clicked, setDiv1Clicked] = useState(false);
     const [div2Clicked, setDiv2Clicked] = useState(false);
@@ -198,6 +203,9 @@ function PokerPage() {
                                 <div className="sun" style={{ width: '100%', height: '100%', position: 'relative' }}>
                                     <div style={{ width: 1477, height: 715, left: 0, top: 0, position: 'absolute', borderTopLeftRadius: 7.69, borderTopRightRadius: 30, borderBottomRightRadius: 30 }}>
                                         <img style={{ width: 1477, height: 715, left: 0, top: 0, position: 'absolute', borderTopLeftRadius: 7.69 }} src={PokerTable} />
+                                        <div style={{ left: 1270, top: 20, position: 'absolute', borderTopLeftRadius: 7.69, borderTopRightRadius: 30, borderBottomRightRadius: 30 }}>
+                                            <CountdownTimer targetDate={dateTimeAfterThreeMins} />
+                                        </div>
                                         <div style={{ width: 60.33, height: 57.48, left: 260, top: 170, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
                                         <div style={{ width: 60.33, height: 57.48, left: 510, top: 90, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
                                         <div style={{ width: 60.33, height: 57.48, left: 710, top: 90, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
