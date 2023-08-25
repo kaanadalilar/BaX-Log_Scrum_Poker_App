@@ -5,7 +5,7 @@ const columns = [
 
     { field: 'status', headerName: <strong>{'Status'}</strong>, width: 90 },
     { field: 'header', headerName: <strong>{'Header'}</strong>, width: 90 },
-    { field: 'description', headerName: <strong>{'Description'}</strong>, width: 150 },
+    { field: 'description', headerName: <strong>{'Description'}</strong>, width: 210 },
 ];
 
 const rows = [

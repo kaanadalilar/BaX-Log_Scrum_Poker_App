@@ -10,48 +10,57 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userID;
 	
-	@Column(name = "first_name")
-	private String firstName;
+	@Column(name = "name")
+	private String name;
 
-	@Column(name = "last_name")
-	private String lastName;
+	@Column(name = "picked_card")
+	private String pickedCard;
 	
-	@Column(name = "email_id")
-	private String emailID;
-	
+	@Column(name = "is_picked_card")
+	private String isPickedCard;
 	
 	public User() {}
 	
-	public User(long userID, String firstName, String lastName, String emailID) {
+	public User(long userID, String name, String pickedCard, String is_picked_card) {
 		super();
 		this.userID = userID;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.emailID = emailID;
+		this.name = name;
+		this.pickedCard = pickedCard;
+		this.isPickedCard = is_picked_card;
 	}
+
 	public long getUserID() {
 		return userID;
 	}
+
 	public void setUserID(long userID) {
 		this.userID = userID;
 	}
-	public String getFirstName() {
-		return firstName;
+
+	public String getName() {
+		return name;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getLastName() {
-		return lastName;
+
+	public String getPickedCard() {
+		return pickedCard;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+
+	public void setPickedCard(String pickedCard) {
+		this.pickedCard = pickedCard;
 	}
-	public String getEmailID() {
-		return emailID;
+
+	public String getIsPickedCard() {
+		return isPickedCard;
 	}
-	public void setEmailID(String emailID) {
-		this.emailID = emailID;
+
+	public void setIsPickedCard(String isPickedCard) {
+		this.isPickedCard = isPickedCard;
 	}
+
+	
 	
 }

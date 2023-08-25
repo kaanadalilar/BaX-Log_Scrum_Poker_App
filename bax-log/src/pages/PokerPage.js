@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "../components/Header";
 import PokerTable from "../components/poker_table.jpg";
 import PokerBacklogTable from "../components/PokerBacklogTable";
 import UnderPokerTable from "../components/under_poker_table.png";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import "./PokerPage.css";
 import CountdownTimer from '../hooks/CountdownTimer';
+import AppService from '../AppService';
 
 function PokerPage() {
+
+    const updateUserPickCard = (chName, chPickedCard, chIsPickedCard) => {
+        let user = { name: chName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard };
+        console.log('user => ' + JSON.stringify(user));
+        AppService.updateUser(2, user);
+    }
 
     const THREE_MINS = 3 * 60 * 1000;
     const NOW_IN_MS = new Date().getTime();
@@ -43,6 +49,7 @@ function PokerPage() {
         switch (divId) {
             case 1:
                 setDiv1Clicked(true);
+                updateUserPickCard("namefromState", "1", "true");
                 setDiv2Clicked(false);
                 setDiv3Clicked(false);
                 setDiv5Clicked(false);
@@ -191,7 +198,6 @@ function PokerPage() {
 
     return (
         <div className="main">
-            <Header />
             <Container>
                 <Row>
                     <div className="intro-text">
