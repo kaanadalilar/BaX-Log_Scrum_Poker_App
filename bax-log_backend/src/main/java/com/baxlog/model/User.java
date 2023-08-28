@@ -19,14 +19,18 @@ public class User {
 	@Column(name = "is_picked_card")
 	private String isPickedCard;
 	
+	@Column(name = "is_admin")
+	private boolean isAdmin;
+	
 	public User() {}
 	
-	public User(long userID, String name, String pickedCard, String is_picked_card) {
+	public User(long userID, String name, String picked_card, String is_picked_card, boolean is_admin) {
 		super();
 		this.userID = userID;
 		this.name = name;
-		this.pickedCard = pickedCard;
+		this.pickedCard = picked_card;
 		this.isPickedCard = is_picked_card;
+		this.isAdmin = is_admin;
 	}
 
 	public long getUserID() {
@@ -59,6 +63,14 @@ public class User {
 
 	public void setIsPickedCard(String isPickedCard) {
 		this.isPickedCard = isPickedCard;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 	
