@@ -15,6 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",
+    "cors": "^2.8.5",
     "i18next": "^23.4.2",
     "mdb-react-ui-kit": "^6.2.0",
     "react": "^18.2.0",

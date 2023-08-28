@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "../components/Header";
 import PokerTable from "../components/poker_table.jpg";
 import PokerBacklogTable from "../components/PokerBacklogTable";
 import UnderPokerTable from "../components/under_poker_table.png";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import "./PokerPage.css";
 import CountdownTimer from '../hooks/CountdownTimer';
+import AppService from '../AppService';
 
 function PokerPage() {
+
+    const updateUserPickCard = (chName, chPickedCard, chIsPickedCard) => {
+        let user = { name: chName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard };
+        console.log('user => ' + JSON.stringify(user));
+        AppService.updateUser(1, user);
+    }
 
     const THREE_MINS = 3 * 60 * 1000;
     const NOW_IN_MS = new Date().getTime();
@@ -43,6 +49,7 @@ function PokerPage() {
         switch (divId) {
             case 1:
                 setDiv1Clicked(true);
+                updateUserPickCard("namefromState", "1", "true");
                 setDiv2Clicked(false);
                 setDiv3Clicked(false);
                 setDiv5Clicked(false);
@@ -57,6 +64,7 @@ function PokerPage() {
             case 2:
                 setDiv1Clicked(false);
                 setDiv2Clicked(true);
+                updateUserPickCard("namefromState", "2", "true");
                 setDiv3Clicked(false);
                 setDiv5Clicked(false);
                 setDiv8Clicked(false);
@@ -191,7 +199,6 @@ function PokerPage() {
 
     return (
         <div className="main">
-            <Header />
             <Container>
                 <Row>
                     <div className="intro-text">
@@ -215,7 +222,7 @@ function PokerPage() {
                                         <div style={{ width: 60.33, height: 57.48, left: 1150, top: 480, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
                                         <div style={{ width: 60.33, height: 57.48, left: 900, top: 570, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
                                         <div style={{ width: 60.33, height: 57.48, left: 710, top: 570, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 490, top: 570, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                        <div style={{ width: 60.33, height: 57.48, left: 510, top: 570, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
                                         <div style={{ width: 60.33, height: 57.48, left: 260, top: 480, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
                                         <div style={{ width: 60.33, height: 57.48, left: 205, top: 330, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
 
@@ -228,7 +235,7 @@ function PokerPage() {
                                         <div style={{ width: 95.52, height: 25.26, left: 1130, top: 550, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Onur</div>
                                         <div style={{ width: 95.52, height: 25.26, left: 880, top: 630, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Sude</div>
                                         <div style={{ width: 95.52, height: 25.26, left: 690, top: 630, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Gökhan</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 470, top: 630, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Olcay</div>
+                                        <div style={{ width: 95.52, height: 25.26, left: 490, top: 630, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Olcay</div>
                                         <div style={{ width: 95.52, height: 25.26, left: 240, top: 550, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>İbrahim</div>
                                         <div style={{ width: 95.52, height: 25.26, left: 185, top: 295, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Kübra</div>
 
