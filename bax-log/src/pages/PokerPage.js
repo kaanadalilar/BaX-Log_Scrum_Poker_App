@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Button, Container, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Container, Row } from "react-bootstrap";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { DataGrid } from '@mui/x-data-grid';
 import PokerTable from "../components/poker_table.jpg";
 import UnderPokerTable from "../components/under_poker_table.png";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import "./PokerPage.css";
 import CountdownTimer from '../hooks/CountdownTimer';
+import DateTimeDisplay from '../hooks/DateTimeDisplay';
 import AppService from '../AppService';
-
-import { DataGrid } from '@mui/x-data-grid';
+import "./PokerPage.css";
 
 const columns = [
     { field: 'status', headerName: <strong>{'Status'}</strong>, width: 90 },
@@ -50,7 +49,7 @@ const rows = [
 
 function PokerPage() {
 
-    const [task, setTask] = React.useState('');
+    const [task, setTask] = useState('');
     const handleRowClick = (params) => {
         setTask(`${params.row.description}`);
     };
@@ -64,11 +63,21 @@ function PokerPage() {
     const THREE_MINS = 3 * 60 * 1000;
     const NOW_IN_MS = new Date().getTime();
     const [myTargetDate, setTargetDate] = useState(NOW_IN_MS + THREE_MINS);
+    const [startCounter, setStartCounter] = useState(false);
+    const [clickCount, setClickCount] = useState(0);
 
     const handleStart = () => {
+        setClickCount((c) => c + 1);
+        if (clickCount === 0) {
+            const START_IN_MS = new Date().getTime();
+            setTargetDate(START_IN_MS + THREE_MINS);
+            setStartCounter(true);
+        }
     };
 
     const handleReset = () => {
+        setStartCounter(false);
+        setClickCount(0);
     };
 
     const handleFinish = () => {
@@ -276,7 +285,16 @@ function PokerPage() {
                                     <div style={{ width: 1477, height: 715, left: 0, top: 0, position: 'absolute', borderTopLeftRadius: 7.69, borderTopRightRadius: 30, borderBottomRightRadius: 30 }}>
                                         <img style={{ width: 1477, height: 715, left: 0, top: 0, position: 'absolute', borderTopLeftRadius: 7.69 }} src={PokerTable} />
                                         <div style={{ left: 1270, top: 20, position: 'absolute', borderTopLeftRadius: 7.69, borderTopRightRadius: 30, borderBottomRightRadius: 30 }}>
-                                            <CountdownTimer targetDate={myTargetDate} />
+                                            {(startCounter === true) && (
+                                                <CountdownTimer targetDate={myTargetDate} />
+                                            )}
+                                            {(startCounter === false) && (
+                                                <div className="show-counter">
+                                                    <DateTimeDisplay value={2} type={'Mins'} isDanger={false} />
+                                                    <p>:</p>
+                                                    <DateTimeDisplay value={59} type={'Seconds'} isDanger={false} />
+                                                </div>
+                                            )}
                                         </div>
                                         <div onClick={() => handleStart()}>
                                             <div style={{ width: 70, height: 25.26, left: 1290, top: 140, position: 'absolute', textAlign: 'center', backgroundColor: "orange", color: 'white', fontSize: 20, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "1px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30 }}>Start</div>
