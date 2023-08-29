@@ -37,7 +37,7 @@ public class UserController {
 		user.setName(userDetails.getName());
 		user.setPickedCard(userDetails.getPickedCard());
 		user.setIsPickedCard(userDetails.getIsPickedCard());
-		user.setAdmin(userDetails.isAdmin());
+		user.setIsAdmin(userDetails.getIsAdmin());
 		
 		User updatedUser = userRepository.save(user);
 		return ResponseEntity.ok(updatedUser);

@@ -54,8 +54,11 @@ function PokerPage() {
         setTask(`${params.row.description}`);
     };
 
-    const updateUserPickCard = (chName, chPickedCard, chIsPickedCard) => {
-        let user = { name: chName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard };
+    const updateUserPickCard = (chPickedCard, chIsPickedCard) => {
+        //name and admin info will come from STATE
+        let chName = "nameFromState";
+        let chIsAdmin = "isAdminFromState"
+        let user = { name: chName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard, isAdmin: chIsAdmin };
         console.log('user => ' + JSON.stringify(user));
         AppService.updateUser(1, user);
     }
@@ -111,148 +114,47 @@ function PokerPage() {
         switch (divId) {
             case 1:
                 setDiv1Clicked(true);
-                updateUserPickCard("namefromState", "1", "true");
-                setDiv2Clicked(false);
-                setDiv3Clicked(false);
-                setDiv5Clicked(false);
-                setDiv8Clicked(false);
-                setDiv13Clicked(false);
-                setDiv21Clicked(false);
-                setDiv34Clicked(false);
-                setDiv55Clicked(false);
-                setDiv89Clicked(false);
-                setDivQMClicked(false);
+                updateUserPickCard("1", "true");
                 break;
             case 2:
-                setDiv1Clicked(false);
                 setDiv2Clicked(true);
-                updateUserPickCard("namefromState", "2", "true");
-                setDiv3Clicked(false);
-                setDiv5Clicked(false);
-                setDiv8Clicked(false);
-                setDiv13Clicked(false);
-                setDiv21Clicked(false);
-                setDiv34Clicked(false);
-                setDiv55Clicked(false);
-                setDiv89Clicked(false);
-                setDivQMClicked(false);
+                updateUserPickCard("2", "true");
                 break;
             case 3:
-                setDiv1Clicked(false);
-                setDiv2Clicked(false);
                 setDiv3Clicked(true);
-                setDiv5Clicked(false);
-                setDiv8Clicked(false);
-                setDiv13Clicked(false);
-                setDiv21Clicked(false);
-                setDiv34Clicked(false);
-                setDiv55Clicked(false);
-                setDiv89Clicked(false);
-                setDivQMClicked(false);
+                updateUserPickCard("3", "true");
                 break;
             case 5:
-                setDiv1Clicked(false);
-                setDiv2Clicked(false);
-                setDiv3Clicked(false);
                 setDiv5Clicked(true);
-                setDiv8Clicked(false);
-                setDiv13Clicked(false);
-                setDiv21Clicked(false);
-                setDiv34Clicked(false);
-                setDiv55Clicked(false);
-                setDiv89Clicked(false);
-                setDivQMClicked(false);
+                updateUserPickCard("5", "true");
                 break;
             case 8:
-                setDiv1Clicked(false);
-                setDiv2Clicked(false);
-                setDiv3Clicked(false);
-                setDiv5Clicked(false);
                 setDiv8Clicked(true);
-                setDiv13Clicked(false);
-                setDiv21Clicked(false);
-                setDiv34Clicked(false);
-                setDiv55Clicked(false);
-                setDiv89Clicked(false);
-                setDivQMClicked(false);
+                updateUserPickCard("8", "true");
                 break;
             case 13:
-                setDiv1Clicked(false);
-                setDiv2Clicked(false);
-                setDiv3Clicked(false);
-                setDiv5Clicked(false);
-                setDiv8Clicked(false);
                 setDiv13Clicked(true);
-                setDiv21Clicked(false);
-                setDiv34Clicked(false);
-                setDiv55Clicked(false);
-                setDiv89Clicked(false);
-                setDivQMClicked(false);
+                updateUserPickCard("13", "true");
                 break;
             case 21:
-                setDiv1Clicked(false);
-                setDiv2Clicked(false);
-                setDiv3Clicked(false);
-                setDiv5Clicked(false);
-                setDiv8Clicked(false);
-                setDiv13Clicked(false);
                 setDiv21Clicked(true);
-                setDiv34Clicked(false);
-                setDiv55Clicked(false);
-                setDiv89Clicked(false);
-                setDivQMClicked(false);
+                updateUserPickCard("21", "true");
                 break;
             case 34:
-                setDiv1Clicked(false);
-                setDiv2Clicked(false);
-                setDiv3Clicked(false);
-                setDiv5Clicked(false);
-                setDiv8Clicked(false);
-                setDiv13Clicked(false);
-                setDiv21Clicked(false);
                 setDiv34Clicked(true);
-                setDiv55Clicked(false);
-                setDiv89Clicked(false);
-                setDivQMClicked(false);
+                updateUserPickCard("34", "true");
                 break;
             case 55:
-                setDiv1Clicked(false);
-                setDiv2Clicked(false);
-                setDiv3Clicked(false);
-                setDiv5Clicked(false);
-                setDiv8Clicked(false);
-                setDiv13Clicked(false);
-                setDiv21Clicked(false);
-                setDiv34Clicked(false);
                 setDiv55Clicked(true);
-                setDiv89Clicked(false);
-                setDivQMClicked(false);
+                updateUserPickCard("55", "true");
                 break;
             case 89:
-                setDiv1Clicked(false);
-                setDiv2Clicked(false);
-                setDiv3Clicked(false);
-                setDiv5Clicked(false);
-                setDiv8Clicked(false);
-                setDiv13Clicked(false);
-                setDiv21Clicked(false);
-                setDiv34Clicked(false);
-                setDiv55Clicked(false);
                 setDiv89Clicked(true);
-                setDivQMClicked(false);
+                updateUserPickCard("89", "true");
                 break;
             case 144:
-                setDiv1Clicked(false);
-                setDiv2Clicked(false);
-                setDiv3Clicked(false);
-                setDiv5Clicked(false);
-                setDiv8Clicked(false);
-                setDiv13Clicked(false);
-                setDiv21Clicked(false);
-                setDiv34Clicked(false);
-                setDiv55Clicked(false);
-                setDiv89Clicked(false);
                 setDivQMClicked(true);
+                updateUserPickCard("?", "true");
                 break;
             default:
                 break;
