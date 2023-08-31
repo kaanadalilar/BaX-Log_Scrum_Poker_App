@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LockIcon from '@mui/icons-material/Lock';
+import MoreTimeIcon from '@mui/icons-material/MoreTime';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import SendIcon from '@mui/icons-material/Send';
 import { DataGrid } from '@mui/x-data-grid';
 import PokerTable from "../components/poker_table.jpg";
 import UnderPokerTable from "../components/under_poker_table.png";
+import RevealCard from "../components/RevealCard";
 import CountdownTimer from '../hooks/CountdownTimer';
 import DateTimeDisplay from '../hooks/DateTimeDisplay';
 import AppService from '../AppService';
@@ -86,6 +92,21 @@ function PokerPage() {
     const handleFinish = () => {
     };
 
+    const handleLock = () => {
+    };
+
+    const handleInvite = () => {
+    };
+
+    const handleAddTime = () => {
+    };
+
+    const handleRevealCards = () => {
+    };
+
+    const handleRestartGame = () => {
+    };
+
     const [div1Clicked, setDiv1Clicked] = useState(false);
     const [div2Clicked, setDiv2Clicked] = useState(false);
     const [div3Clicked, setDiv3Clicked] = useState(false);
@@ -161,6 +182,9 @@ function PokerPage() {
         }
     };
 
+    const handleSendClick = () => {
+    };
+
     return (
         <div className="main">
             <Container>
@@ -204,6 +228,19 @@ function PokerPage() {
                                         <div onClick={() => handleReset()}>
                                             <div style={{ width: 70, height: 25.26, left: 1370, top: 140, position: 'absolute', textAlign: 'center', backgroundColor: "orange", color: 'white', fontSize: 20, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "1px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30 }}>Reset</div>
                                         </div>
+                                        <div>
+                                            <div onClick={() => handleLock()} style={{ width: 180, height: 60, left: 1270, top: 390, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Lock the game <LockIcon sx={{ fontSize: "40px", color: "white" }}></LockIcon></div>
+                                        </div>
+                                        <div>
+                                            <div onClick={() => handleInvite()} style={{ width: 180, height: 60, left: 1270, top: 470, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Invite people <PersonAddIcon sx={{ fontSize: "40px", color: "white" }}></PersonAddIcon></div>
+                                        </div>
+                                        <div>
+                                            <div onClick={() => handleAddTime()} style={{ width: 180, height: 60, left: 1270, top: 550, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Add time <MoreTimeIcon sx={{ fontSize: "40px", color: "white" }}></MoreTimeIcon></div>
+                                        </div>
+                                        <div onClick={() => handleRevealCards()}>
+                                            <div style={{ width: 180, height: 60, left: 1270, top: 630, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', paddingLeft: '3px', justifyContent: 'left', alignItems: 'center' }}>Reveal cards <RevealCard /></div>
+                                        </div>
+
                                         <div style={{ width: 60.33, height: 57.48, left: 260, top: 170, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
                                         <div style={{ width: 60.33, height: 57.48, left: 510, top: 90, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
                                         <div style={{ width: 60.33, height: 57.48, left: 710, top: 90, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
@@ -466,6 +503,11 @@ function PokerPage() {
                                         </div>
                                     </div>
 
+                                    <div onClick={() => handleSendClick()} style={{ width: 70, height: 68, left: 1060, top: 710, border: '2px #D2D2D2 solid', position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <SendIcon sx={{ fontSize: "40px", color: "white" }}></SendIcon></div>
+
+                                    <div>
+                                        <div onClick={() => handleRestartGame()} style={{ width: 180, height: 60, left: 1270, top: 710, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Restart Game <RestartAltIcon sx={{ fontSize: "40px", color: "white" }}></RestartAltIcon></div>
+                                    </div>
                                     <div
                                         style={{
                                             width: 932, height: 20, paddingLeft: 2, paddingRight: 15.39, paddingTop: 9.62, paddingBottom: 9.62, left: 40, top: 9, position: 'absolute', opacity: 0.70, background: '#667085',
