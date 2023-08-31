@@ -66,7 +66,7 @@ function PokerPage() {
         let chIsAdmin = "isAdminFromState"
         let user = { name: chName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard, isAdmin: chIsAdmin };
         console.log('user => ' + JSON.stringify(user));
-        AppService.updateUser(1, user);
+        AppService.updateUser(1, user); //userID will come from state (1)
     }
 
     const THREE_MINS = 3 * 60 * 1000;
@@ -93,18 +93,23 @@ function PokerPage() {
     };
 
     const handleLock = () => {
+        console.log("Game is locked.")
     };
 
     const handleInvite = () => {
+        console.log("Player is invited.")
     };
 
     const handleAddTime = () => {
+        console.log("Time is added.")
     };
 
     const handleRevealCards = () => {
+        console.log("Cards revealed.")
     };
 
     const handleRestartGame = () => {
+        console.log("Game is restarted.")
     };
 
     const [div1Clicked, setDiv1Clicked] = useState(false);
@@ -135,47 +140,36 @@ function PokerPage() {
         switch (divId) {
             case 1:
                 setDiv1Clicked(true);
-                updateUserPickCard("1", "true");
                 break;
             case 2:
                 setDiv2Clicked(true);
-                updateUserPickCard("2", "true");
                 break;
             case 3:
                 setDiv3Clicked(true);
-                updateUserPickCard("3", "true");
                 break;
             case 5:
                 setDiv5Clicked(true);
-                updateUserPickCard("5", "true");
                 break;
             case 8:
                 setDiv8Clicked(true);
-                updateUserPickCard("8", "true");
                 break;
             case 13:
                 setDiv13Clicked(true);
-                updateUserPickCard("13", "true");
                 break;
             case 21:
                 setDiv21Clicked(true);
-                updateUserPickCard("21", "true");
                 break;
             case 34:
                 setDiv34Clicked(true);
-                updateUserPickCard("34", "true");
                 break;
             case 55:
                 setDiv55Clicked(true);
-                updateUserPickCard("55", "true");
                 break;
             case 89:
                 setDiv89Clicked(true);
-                updateUserPickCard("89", "true");
                 break;
             case 144:
                 setDivQMClicked(true);
-                updateUserPickCard("?", "true");
                 break;
             default:
                 break;
@@ -183,6 +177,42 @@ function PokerPage() {
     };
 
     const handleSendClick = () => {
+        if (div1Clicked) {
+            updateUserPickCard("1", "true");
+        }
+        else if (div2Clicked) {
+            updateUserPickCard("2", "true");
+        }
+        else if (div3Clicked) {
+            updateUserPickCard("3", "true");
+        }
+        else if (div5Clicked) {
+            updateUserPickCard("5", "true");
+        }
+        else if (div8Clicked) {
+            updateUserPickCard("8", "true");
+        }
+        else if (div13Clicked) {
+            updateUserPickCard("13", "true");
+        }
+        else if (div21Clicked) {
+            updateUserPickCard("21", "true");
+        }
+        else if (div34Clicked) {
+            updateUserPickCard("34", "true");
+        }
+        else if (div55Clicked) {
+            updateUserPickCard("55", "true");
+        }
+        else if (div89Clicked) {
+            updateUserPickCard("89", "true");
+        }
+        else if (divQMClicked) {
+            updateUserPickCard("?", "true");
+        }
+        else {
+            alert("Please select a card.");
+        }
     };
 
     return (
