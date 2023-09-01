@@ -5,32 +5,36 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="users")
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userID;
-	
+
 	@Column(name = "name")
 	private String name;
 
 	@Column(name = "picked_card")
 	private String pickedCard;
-	
+
 	@Column(name = "is_picked_card")
 	private String isPickedCard;
-	
+
 	@Column(name = "is_admin")
 	private String isAdmin;
-	
+
+	@Column(name = "session_id")
+	private long sessionID;
+
 	public User() {}
-	
-	public User(long userID, String name, String picked_card, String is_picked_card, String is_admin) {
+
+	public User(long userID, String name, String picked_card, String is_picked_card, String is_admin, long session_id) {
 		super();
 		this.userID = userID;
 		this.name = name;
 		this.pickedCard = picked_card;
 		this.isPickedCard = is_picked_card;
 		this.isAdmin = is_admin;
+		this.sessionID = session_id;
 	}
 
 	public long getUserID() {
@@ -71,5 +75,13 @@ public class User {
 
 	public void setIsAdmin(String isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	public long getSessionID() {
+		return sessionID;
+	}
+
+	public void setSessionID(long sessionID) {
+		this.sessionID = sessionID;
 	}
 }

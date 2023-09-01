@@ -23,29 +23,30 @@ import com.baxlog.repository.UserRepository;
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@GetMapping("/users")
 	public List<User> getAllUsers(){
 		return userRepository.findAll();
 	}
-	
+
 	@PutMapping("/users/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails ){
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
-		
+
 		user.setName(userDetails.getName());
 		user.setPickedCard(userDetails.getPickedCard());
 		user.setIsPickedCard(userDetails.getIsPickedCard());
 		user.setIsAdmin(userDetails.getIsAdmin());
-		
+		user.setSessionID(userDetails.getSessionID());
+
 		User updatedUser = userRepository.save(user);
 		return ResponseEntity.ok(updatedUser);
 	}
-	
+
 	@PostMapping("/users")
 	public User createUser(@RequestBody User user) {
 		return userRepository.save(user);
 	}
-	
+
 }
