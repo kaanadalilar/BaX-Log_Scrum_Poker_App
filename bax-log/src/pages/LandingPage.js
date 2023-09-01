@@ -1,7 +1,4 @@
-import Header from "../components/Header";
-import PokerBackground from "../components/black_poker_background.jpg";
-
-import * as React from 'react';
+import React, { useState } from "react";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,19 +11,37 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Carousel from 'react-material-ui-carousel';
-
-// TODO remove, this demo shouldn't need to reset the theme.
+import PokerBackground from "../components/black_poker_background.jpg";
 
 const defaultTheme = createTheme();
 
 export default function LandingPage() {
+
+  const [createClicked, setCreateClicked] = useState(false);
+  const [joinClicked, setJoinClicked] = useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    let sessionID = data.get('sessionID');
+    let username = data.get('username');
+    if (sessionID.includes(' ') || sessionID.length < 6) {
+      alert("Session ID must be 6 characters!")
+    }
+    if (username.includes(' ')) {
+      alert("Username cannot include blanks!")
+    }
+    if (createClicked) {
+      console.log(
+        "CREATE SESSION", { sessionID, username }
+      );
+
+    }
+    else if (joinClicked) {
+      console.log(
+        "JOIN SESSION", { sessionID, username }
+      );
+    }
   };
 
   return (
@@ -53,49 +68,44 @@ export default function LandingPage() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
+                id="sessionID"
                 label="Session ID"
-                name="email"
-                autoComplete="email"
+                name="sessionID"
                 autoFocus
+                inputProps={{ inputMode: "decimal", pattern: '[0-9]*', maxLength: 6 }}
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                name="username"
                 label="Your name"
-                type="password"
-                id="password"
-                autoComplete="current-password"
+                id="username"
               />
 
               <div style={{ justifyContent: "center" }}>
-                <Carousel indicators={false} cycleNavigation={false} swipe={false} autoPlay={false} navButtonsAlwaysVisible>
-                  <div style={{ justifyContent: "center", display: "flex" }}>  <h1>Create session</h1> </div>
-                  <div style={{ justifyContent: "center", display: "flex" }}>  <h1>Join session</h1> </div>
+                <Carousel indicators={false} cycleNavigation={true} swipe={false} autoPlay={false} navButtonsAlwaysVisible>
+                  <div style={{ justifyContent: "center", display: "flex" }}>  <Button
+                    onClick={() => { setCreateClicked(true); setJoinClicked(false) }}
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2, width: 250 }}
+                  >
+                    Create session
+                  </Button> </div>
+                  <div style={{ justifyContent: "center", display: "flex" }}>  <Button
+                    onClick={() => { setJoinClicked(true); setCreateClicked(false) }}
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2, width: 250 }}
+                  >
+                    Join session
+                  </Button> </div>
                 </Carousel>
               </div>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
+
             </Box>
           </Box>
           <p></p>
