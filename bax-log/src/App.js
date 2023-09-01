@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <Header />
       <main className="App-main">
-        <PokerPage />
+        <LandingPage />
       </main>
     </div>
   );

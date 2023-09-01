@@ -123,6 +123,7 @@ function PokerPage() {
     const [div55Clicked, setDiv55Clicked] = useState(false);
     const [div89Clicked, setDiv89Clicked] = useState(false);
     const [divQMClicked, setDivQMClicked] = useState(false);
+    const [sendSucceeded, setSendSucceeded] = useState(false);
 
     const handleDivClick = (divId) => {
         setDiv1Clicked(false);
@@ -179,6 +180,7 @@ function PokerPage() {
     const handleSendClick = () => {
         if (div1Clicked) {
             updateUserPickCard("1", "true");
+            setSendSucceeded(true);
         }
         else if (div2Clicked) {
             updateUserPickCard("2", "true");
@@ -299,7 +301,7 @@ function PokerPage() {
 
                                         <div style={{ width: 43.50, height: 56.35, left: 390, top: 280, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: '0 0' }}>
                                             <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                <div style={{ backgroundColor: (sendSucceeded) ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
                                                 <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
                                             </div>
                                             <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
