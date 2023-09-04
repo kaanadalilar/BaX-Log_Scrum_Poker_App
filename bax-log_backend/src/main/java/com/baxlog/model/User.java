@@ -5,53 +5,83 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="users")
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userID;
-	
-	@Column(name = "first_name")
-	private String firstName;
 
-	@Column(name = "last_name")
-	private String lastName;
-	
-	@Column(name = "email_id")
-	private String emailID;
-	
-	
+	@Column(name = "name")
+	private String name;
+
+	@Column(name = "picked_card")
+	private String pickedCard;
+
+	@Column(name = "is_picked_card")
+	private String isPickedCard;
+
+	@Column(name = "is_admin")
+	private String isAdmin;
+
+	@Column(name = "session_id")
+	private long sessionID;
+
 	public User() {}
-	
-	public User(long userID, String firstName, String lastName, String emailID) {
+
+	public User(long userID, String name, String picked_card, String is_picked_card, String is_admin, long session_id) {
 		super();
 		this.userID = userID;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.emailID = emailID;
+		this.name = name;
+		this.pickedCard = picked_card;
+		this.isPickedCard = is_picked_card;
+		this.isAdmin = is_admin;
+		this.sessionID = session_id;
 	}
+
 	public long getUserID() {
 		return userID;
 	}
+
 	public void setUserID(long userID) {
 		this.userID = userID;
 	}
-	public String getFirstName() {
-		return firstName;
+
+	public String getName() {
+		return name;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getLastName() {
-		return lastName;
+
+	public String getPickedCard() {
+		return pickedCard;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+
+	public void setPickedCard(String pickedCard) {
+		this.pickedCard = pickedCard;
 	}
-	public String getEmailID() {
-		return emailID;
+
+	public String getIsPickedCard() {
+		return isPickedCard;
 	}
-	public void setEmailID(String emailID) {
-		this.emailID = emailID;
+
+	public void setIsPickedCard(String isPickedCard) {
+		this.isPickedCard = isPickedCard;
 	}
-	
+
+	public String getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(String isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public long getSessionID() {
+		return sessionID;
+	}
+
+	public void setSessionID(long sessionID) {
+		this.sessionID = sessionID;
+	}
 }

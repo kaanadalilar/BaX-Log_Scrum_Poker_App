@@ -1,0 +1,136 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.title {
+    justify-content: center;
+}
+
+.moonsun {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 0;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    transition: all 0.3s;
+}
+
+
+@media only screen and (min-width: 480px) and (max-width: 1024px) {
+
+    /* show element on medium-sized screens */
+    .my-element {
+        display: block;
+    }
+}
+
+.moon {
+    width: 29.7%;
+    height: 100%;
+    position: relative;
+    padding: 0;
+    overflow: auto;
+}
+
+.sun {
+    width: 70.3%;
+    height: 100%;
+    max-width: 100%;
+    position: relative;
+    padding: 0;
+    transition: all 0.3s;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#parent {
+    width: fit-content;
+    margin: 2em;
+
+    .child {
+        padding: 2em;
+        background-color: #f2f2f2;
+    }
+
+    .child:hover {
+        background-color: red;
+    }
+}
+
+.expired-notice {
+    text-align: center;
+    padding: 0.5rem;
+    border: 1px solid red;
+    border-radius: 0.25rem;
+    margin: 0.5rem;
+    line-height: 2rem;
+    font-size: 1.25rem;
+}
+
+.expired-notice>span {
+    font-size: 1.87rem;
+    border: 2rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    line-height: 5rem;
+    font-style: italic;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    color: red;
+}
+
+.expired-notice>p {
+    font-size: 1rem;
+    padding: 2rem;
+    margin: 2rem;
+    line-height: 1.75rem;
+}
+
+.show-counter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    padding: 1rem;
+    margin: 0.5rem;
+    border: 1px solid #ebebeb;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+.show-counter .countdown {
+    line-height: 1.25rem;
+    padding: 0 0.75rem 0 0.75rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.show-counter .countdown.danger {
+    color: #ff0000;
+}
+
+.show-counter .countdown>p {
+    margin: 0;
+}
+
+.show-counter .countdown>span {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    line-height: 1.75rem;
+}
