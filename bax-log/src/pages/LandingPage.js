@@ -12,6 +12,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Carousel from 'react-material-ui-carousel';
 import PokerBackground from "../components/black_poker_background.jpg";
+import AppService from '../AppService';
 
 const defaultTheme = createTheme();
 
@@ -41,6 +42,16 @@ export default function LandingPage() {
       console.log(
         "JOIN SESSION", { sessionID, username }
       );
+      if (sessionID[0] === 0) {
+        let newSessionId = sessionID[1, 6];
+        let mySession = AppService.getSessionById(newSessionId);
+        console.log(mySession);
+      }
+      else {
+        let mySession = AppService.getSessionById(sessionID);
+        console.log(mySession);
+      }
+
     }
   };
 
