@@ -37,6 +37,10 @@ export default function LandingPage() {
         "CREATE SESSION", { sessionID, username }
       );
 
+      let newUser = { name: username, pickedCard: "", isPickedCard: "false", isAdmin: "true", sessionID: sessionID };
+      let newSession = { sessionID: sessionID, sessionAdmin: username, sessionAdminID: "121121" };
+      AppService.createUser(newUser);
+      AppService.createSession(newSession);
     }
     else if (joinClicked) {
       console.log(

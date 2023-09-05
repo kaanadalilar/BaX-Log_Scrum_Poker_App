@@ -23,11 +23,11 @@ public class User {
 	private String isAdmin;
 
 	@Column(name = "session_id")
-	private long sessionID;
+	private String sessionID;
 
 	public User() {}
 
-	public User(long userID, String name, String picked_card, String is_picked_card, String is_admin, long session_id) {
+	public User(long userID, String name, String picked_card, String is_picked_card, String is_admin, String session_id) {
 		super();
 		this.userID = userID;
 		this.name = name;
@@ -77,11 +77,11 @@ public class User {
 		this.isAdmin = isAdmin;
 	}
 
-	public long getSessionID() {
+	public String getSessionID() {
 		return sessionID;
 	}
 
-	public void setSessionID(long sessionID) {
+	public void setSessionID(String sessionID) {
 		this.sessionID = sessionID;
 	}
 }

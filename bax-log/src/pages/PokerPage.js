@@ -61,7 +61,6 @@ function PokerPage() {
     };
 
     const updateUserPickCard = (chPickedCard, chIsPickedCard) => {
-        //name and admin info will come from STATE
         let chName = "nameFromState";
         let chIsAdmin = "isAdminFromState"
         let user = { name: chName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard, isAdmin: chIsAdmin };

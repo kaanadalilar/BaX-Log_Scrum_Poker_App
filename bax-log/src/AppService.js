@@ -14,11 +14,11 @@ class AppService {
     }
 
     createUser(user) {
-        return axios.post(USER_API_BASE_URL, user);
+        return axios.post(USER_API_BASE_URL + '/save', user);
     }
 
     createSession(session) {
-        return axios.post(SESSION_API_BASE_URL, session);
+        return axios.post(SESSION_API_BASE_URL + '/save', session);
     }
 
     getUserById(userId) {

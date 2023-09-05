@@ -44,7 +44,7 @@ public class UserController {
 		return ResponseEntity.ok(updatedUser);
 	}
 
-	@PostMapping("/users")
+	@PostMapping("/users/save")
 	public User createUser(@RequestBody User user) {
 		return userRepository.save(user);
 	}
