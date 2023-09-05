@@ -21,12 +21,12 @@ class AppService {
         return axios.post(SESSION_API_BASE_URL + '/save', session);
     }
 
-    getUserById(userId) {
-        return axios.get(USER_API_BASE_URL + '/' + userId);
+    checkSession(sessionID) {
+        return axios.get(SESSION_API_BASE_URL + '/check/' + sessionID);
     }
 
-    getSessionById(sessionId) {
-        return axios.get(SESSION_API_BASE_URL + '/' + sessionId);
+    getUserById(userId) {
+        return axios.get(USER_API_BASE_URL + '/' + userId);
     }
 
     deleteUser(userId) {
