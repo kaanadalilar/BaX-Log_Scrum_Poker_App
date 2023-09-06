@@ -27,7 +27,7 @@ export default function LandingPage() {
       AppService.createUser(newUser);
       AppService.joinSession(sessionID);
       alert("You are about to enjoy the game")
-      navigate("/game")
+      navigate(`/game/${sessionID}/guest`)
     }else if(response.data === "Session is full"){
       alert("Session is full :(")
     }
@@ -42,7 +42,7 @@ export default function LandingPage() {
       AppService.createUser(newUser);
       AppService.createSession(newSession);
       alert("You are about to enjoy the game")
-      navigate("/game")
+      navigate(`/game/${sessionID}/admin`)
     }
     else {
       alert("This Session ID is already taken :(")

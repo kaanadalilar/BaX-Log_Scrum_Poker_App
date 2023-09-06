@@ -11,7 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/game" element={<PokerPage />} />
+        <Route path="/game/:sessionID/:role" element={<PokerPage />} />
       </Routes>
     </Router>
   );

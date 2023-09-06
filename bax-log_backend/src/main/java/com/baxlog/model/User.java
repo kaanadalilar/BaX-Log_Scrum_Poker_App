@@ -25,6 +25,9 @@ public class User {
 	@Column(name = "session_id")
 	private String sessionID;
 
+	@Column(name = "user_name")
+	private String username;
+
 	public User() {}
 
 	public User(long userID, String name, String picked_card, String is_picked_card, String is_admin, String session_id) {
@@ -84,4 +87,6 @@ public class User {
 	public void setSessionID(String sessionID) {
 		this.sessionID = sessionID;
 	}
+
+
 }
