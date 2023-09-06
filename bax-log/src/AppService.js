@@ -21,8 +21,12 @@ class AppService {
         return axios.post(SESSION_API_BASE_URL + '/save', session);
     }
 
-    checkSession(sessionID) {
-        return axios.get(SESSION_API_BASE_URL + '/check/' + sessionID);
+    checkJoinSession(sessionID) {
+        return axios.get(SESSION_API_BASE_URL + '/joincheck/' + sessionID);
+    }
+
+    checkCreateSession(sessionID) {
+        return axios.get(SESSION_API_BASE_URL + '/createcheck/' + sessionID);
     }
 
     getUserById(userId) {
@@ -39,6 +43,10 @@ class AppService {
 
     updateUser(userId, user) {
         return axios.put(USER_API_BASE_URL + '/' + userId, user);
+    }
+
+    joinSession(sessionID) {
+        return axios.put(SESSION_API_BASE_URL + '/join/' + sessionID);
     }
 }
 

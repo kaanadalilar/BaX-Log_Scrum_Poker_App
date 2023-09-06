@@ -21,16 +21,34 @@ export default function LandingPage() {
   const [joinClicked, setJoinClicked] = useState(false);
   const navigate = useNavigate();
 
-  async function tryJoin(sessionID) {
-    let response = await AppService.checkSession(sessionID);
+  async function tryJoin(sessionID, newUser) {
+    let response = await AppService.checkJoinSession(sessionID);
     if (response.data === "Success") {
+      AppService.createUser(newUser);
+      AppService.joinSession(sessionID);
       alert("You are about to enjoy the game")
       navigate("/game")
+    }else if(response.data === "Session is full"){
+      alert("Session is full :(")
     }
     else {
       alert("There is no such session :(")
     }
   }
+
+  async function tryCreate(sessionID, newUser, newSession) {
+    let response = await AppService.checkCreateSession(sessionID);
+    if (response.data === "Success") {
+      AppService.createUser(newUser);
+      AppService.createSession(newSession);
+      alert("You are about to enjoy the game")
+      navigate("/game")
+    }
+    else {
+      alert("This Session ID is already taken :(")
+    }
+  }
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -46,11 +64,11 @@ export default function LandingPage() {
     if (createClicked) {
       let newUser = { name: username, pickedCard: "", isPickedCard: "false", isAdmin: "true", sessionID: sessionID };
       let newSession = { sessionID: sessionID, sessionAdmin: username, sessionAdminID: "121121" };
-      AppService.createUser(newUser);
-      AppService.createSession(newSession);
+      tryCreate(sessionID, newUser, newSession);
     }
     else if (joinClicked) {
-      tryJoin(sessionID);
+      let newUser = { name: username, pickedCard: "", isPickedCard: "false", isAdmin: "false", sessionID: sessionID };
+      tryJoin(sessionID, newUser);
     }
   };
 
