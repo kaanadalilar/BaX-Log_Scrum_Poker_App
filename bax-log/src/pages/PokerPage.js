@@ -58,6 +58,8 @@ function PokerPage() {
     const params= useParams();
     const userRole = params.role;
     const paramsSessionID = params.sessionID;
+    const paramsName = params.name;
+    const [sendCount, setSendCount] = useState(0);
 
     const [task, setTask] = useState('');
     const handleRowClick = (params) => {
@@ -65,11 +67,15 @@ function PokerPage() {
     };
 
     const updateUserPickCard = (chPickedCard, chIsPickedCard) => {
-        let chName = "nameFromState";
-        let chIsAdmin = "isAdminFromState"
-        let user = { name: chName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard, isAdmin: chIsAdmin };
+        let myRole = "";
+        if(userRole === "admin") {
+            myRole = "true";
+        }else{
+            myRole = "false";
+        }
+        let user = { name: paramsName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard, isAdmin: myRole };
         console.log('user => ' + JSON.stringify(user));
-        AppService.updateUser(1, user); //userID will come from state (1)
+        AppService.updateUser(paramsName, user);
     }
 
     const THREE_MINS = 3 * 60 * 1000;
@@ -181,42 +187,57 @@ function PokerPage() {
     };
 
     const handleSendClick = () => {
-        if (div1Clicked) {
-            updateUserPickCard("1", "true");
-            setSendSucceeded(true);
-        }
-        else if (div2Clicked) {
-            updateUserPickCard("2", "true");
-        }
-        else if (div3Clicked) {
-            updateUserPickCard("3", "true");
-        }
-        else if (div5Clicked) {
-            updateUserPickCard("5", "true");
-        }
-        else if (div8Clicked) {
-            updateUserPickCard("8", "true");
-        }
-        else if (div13Clicked) {
-            updateUserPickCard("13", "true");
-        }
-        else if (div21Clicked) {
-            updateUserPickCard("21", "true");
-        }
-        else if (div34Clicked) {
-            updateUserPickCard("34", "true");
-        }
-        else if (div55Clicked) {
-            updateUserPickCard("55", "true");
-        }
-        else if (div89Clicked) {
-            updateUserPickCard("89", "true");
-        }
-        else if (divQMClicked) {
-            updateUserPickCard("?", "true");
-        }
-        else {
-            alert("Please select a card.");
+        if (sendCount === 1) {
+            alert("You have already sent your card.");
+        }else{
+            if (div1Clicked ) {
+                updateUserPickCard("1", "true");
+                setSendSucceeded(true);
+                setSendCount((c) => c + 1);
+            }
+            else if (div2Clicked ) {  
+                updateUserPickCard("2", "true");
+                setSendCount((c) => c + 1);
+            }
+            else if (div3Clicked ) {
+                updateUserPickCard("3", "true");
+                setSendCount((c) => c + 1);
+            }
+            else if (div5Clicked ) {
+                updateUserPickCard("5", "true");
+                setSendCount((c) => c + 1);
+            }
+            else if (div8Clicked ) {
+                updateUserPickCard("8", "true");
+                setSendCount((c) => c + 1);
+            }
+            else if (div13Clicked ) {
+                updateUserPickCard("13", "true");
+                setSendCount((c) => c + 1);
+            }
+            else if (div21Clicked ) {
+                updateUserPickCard("21", "true");
+                setSendCount((c) => c + 1);
+            }
+            else if (div34Clicked ) {
+                updateUserPickCard("34", "true");
+                setSendCount((c) => c + 1);
+            }
+            else if (div55Clicked ) {
+                updateUserPickCard("55", "true");
+                setSendCount((c) => c + 1);
+            }
+            else if (div89Clicked) {
+                updateUserPickCard("89", "true");
+                setSendCount((c) => c + 1);
+            }
+            else if (divQMClicked ) {
+                updateUserPickCard("?", "true");
+                setSendCount((c) => c + 1);
+            }
+            else {
+                alert("Please select a card.");
+            }
         }
     };
 

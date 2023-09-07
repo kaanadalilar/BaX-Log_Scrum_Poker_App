@@ -41,8 +41,8 @@ class AppService {
         return axios.delete(SESSION_API_BASE_URL + '/' + sessionId);
     }
 
-    updateUser(userId, user) {
-        return axios.put(USER_API_BASE_URL + '/' + userId, user);
+    updateUser(name, user) {
+        return axios.put(USER_API_BASE_URL + '/' + name, user);
     }
 
     joinSession(sessionID) {

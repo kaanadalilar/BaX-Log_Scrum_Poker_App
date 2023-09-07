@@ -30,7 +30,7 @@ export default function LandingPage() {
         AppService.createUser(newUser);
         AppService.joinSession(sessionID);
         alert("You are about to enjoy the game")
-        navigate(`/game/${sessionID}/guest`)
+        navigate(`/game/${sessionID}/guest/${newUser.name}`)
       } else {
         alert("Username already exists :(")
       }
@@ -48,7 +48,7 @@ export default function LandingPage() {
       AppService.createUser(newUser);
       AppService.createSession(newSession);
       alert("You are about to enjoy the game")
-      navigate(`/game/${sessionID}/admin`)
+      navigate(`/game/${sessionID}/admin/${newUser.name}`)
     }
     else {
       alert("This Session ID is already taken :(")

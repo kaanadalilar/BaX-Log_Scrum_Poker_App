@@ -7,9 +7,10 @@
     <list default="true" id="61bfcb0e-6846-4783-b2cc-b6989fb78717" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bax-log/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/bax-log/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bax-log/src/AppService.js" beforeDir="false" afterPath="$PROJECT_DIR$/bax-log/src/AppService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bax-log/src/pages/LandingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/bax-log/src/pages/LandingPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bax-log/src/pages/PokerPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/bax-log/src/pages/PokerPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bax-log_backend/src/main/java/com/baxlog/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/bax-log_backend/src/main/java/com/baxlog/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bax-log_backend/src/main/java/com/baxlog/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bax-log_backend/src/main/java/com/baxlog/controller/UserController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
