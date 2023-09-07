@@ -24,11 +24,17 @@ export default function LandingPage() {
   async function tryJoin(sessionID, newUser) {
     let response = await AppService.checkJoinSession(sessionID);
     if (response.data === "Success") {
-      AppService.createUser(newUser);
-      AppService.joinSession(sessionID);
-      alert("You are about to enjoy the game")
-      navigate(`/game/${sessionID}/guest`)
-    }else if(response.data === "Session is full"){
+      let newResponse = await AppService.checkUsernameExists(newUser.name);
+      console.log(newResponse.data);
+      if (newResponse.data === "Success") {
+        AppService.createUser(newUser);
+        AppService.joinSession(sessionID);
+        alert("You are about to enjoy the game")
+        navigate(`/game/${sessionID}/guest`)
+      } else {
+        alert("Username already exists :(")
+      }
+    } else if (response.data === "Session is full") {
       alert("Session is full :(")
     }
     else {
@@ -62,12 +68,16 @@ export default function LandingPage() {
       alert("Username cannot include blanks!")
     }
     if (createClicked) {
-      let newUser = { name: username, pickedCard: "", isPickedCard: "false", isAdmin: "true", sessionID: sessionID };
+      let dbUsername = sessionID + "-" + username;
+      console.log(dbUsername);
+      let newUser = { name: dbUsername, pickedCard: "", isPickedCard: "false", isAdmin: "true", sessionID: sessionID };
       let newSession = { sessionID: sessionID, sessionAdmin: username, sessionAdminID: "121121" };
       tryCreate(sessionID, newUser, newSession);
     }
     else if (joinClicked) {
-      let newUser = { name: username, pickedCard: "", isPickedCard: "false", isAdmin: "false", sessionID: sessionID };
+      let dbUsername = sessionID + "-" + username;
+      console.log(dbUsername);
+      let newUser = { name: dbUsername, pickedCard: "", isPickedCard: "false", isAdmin: "false", sessionID: sessionID };
       tryJoin(sessionID, newUser);
     }
   };

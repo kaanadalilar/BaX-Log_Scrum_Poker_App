@@ -48,6 +48,10 @@ class AppService {
     joinSession(sessionID) {
         return axios.put(SESSION_API_BASE_URL + '/join/' + sessionID);
     }
+
+    checkUsernameExists(name) {
+        return axios.get(USER_API_BASE_URL + '/usernamecheck/' + name);
+    }
 }
 
 export default new AppService()

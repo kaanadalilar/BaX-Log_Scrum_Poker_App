@@ -2,6 +2,7 @@ package com.baxlog.controller;
 
 import java.util.List;
 
+import com.baxlog.model.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -47,6 +48,20 @@ public class UserController {
 	@PostMapping("/users/save")
 	public User createUser(@RequestBody User user) {
 		return userRepository.save(user);
+	}
+
+	@GetMapping("/users/usernamecheck/{name}")
+	public String checkUsername(@PathVariable String name){
+		System.out.println(name);
+		String returnMessage = "Success";
+		List<User> allUsers = getAllUsers();
+		for(int i=0; i<allUsers.size(); i++) {
+			if(allUsers.get(i).getName().equals(name)) {
+				System.out.println(name);
+				returnMessage = "There is already someone with this name";
+			}
+		}
+		return returnMessage;
 	}
 
 }

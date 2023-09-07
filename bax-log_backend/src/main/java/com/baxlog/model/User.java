@@ -1,5 +1,4 @@
 package com.baxlog.model;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -25,8 +24,6 @@ public class User {
 	@Column(name = "session_id")
 	private String sessionID;
 
-	@Column(name = "user_name")
-	private String username;
 
 	public User() {}
 
