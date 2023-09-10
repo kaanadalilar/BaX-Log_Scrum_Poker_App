@@ -1,8 +1,6 @@
 package com.baxlog.controller;
 import java.util.List;
 
-import com.baxlog.exception.ResourceNotFoundException;
-import com.baxlog.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

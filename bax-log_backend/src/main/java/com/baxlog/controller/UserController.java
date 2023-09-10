@@ -1,8 +1,9 @@
 package com.baxlog.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.baxlog.model.Session;
+import org.json.simple.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.baxlog.exception.ResourceNotFoundException;
 import com.baxlog.model.User;
 import com.baxlog.repository.UserRepository;
 
@@ -65,6 +65,21 @@ public class UserController {
 			}
 		}
 		return returnMessage;
+	}
+	
+	@GetMapping("/users/{sessionID}")
+	public JSONArray getSessionUsers(@PathVariable String sessionID){
+		JSONArray list = new JSONArray();
+		List<User> allUsers = getAllUsers();
+		for(int i=0; i<allUsers.size(); i++) {
+			if(allUsers.get(i).getSessionID().equals(sessionID)) {
+				String name = allUsers.get(i).getName().substring(7);
+				list.add(name);
+				System.out.println(list);
+			}
+		}
+		
+		return list;
 	}
 
 }

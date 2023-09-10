@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react'
+import { over } from 'stompjs';
+import SockJS from 'sockjs-client';
 import { Container, Row } from "react-bootstrap";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
@@ -15,6 +17,8 @@ import DateTimeDisplay from '../hooks/DateTimeDisplay';
 import AppService from '../AppService';
 import { useParams } from "react-router-dom";
 import "./PokerPage.css";
+
+var stompClient = null;
 
 const columns = [
     { field: 'status', headerName: <strong>{'Status'}</strong>, width: 90 },
@@ -53,13 +57,137 @@ const rows = [
     { id: 29, status: 'Passive', header: '#234', description: "Task description will be here" },
 ];
 
-
 function PokerPage() {
-    const params= useParams();
+    const [privateChats, setPrivateChats] = useState(new Map());
+    const [publicChats, setPublicChats] = useState([]);
+    const [sessionUsers, setSessionUsers] = useState([]);
+    const [tab, setTab] = useState("CHATROOM");
+    const [userData, setUserData] = useState({
+        username: '',
+        receivername: '',
+        connected: false,
+        message: ''
+    });
+
+    const connect = () => {
+        let Sock = new SockJS('http://localhost:8080/ws');
+        stompClient = over(Sock);
+        stompClient.connect({}, onConnected, onError);
+    }
+
+    const onConnected = () => {
+        setUserData({ ...userData, "connected": true });
+        stompClient.subscribe('/chatroom/public', onMessageReceived);
+        stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessage);
+        userJoin();
+    }
+
+    const userJoin = () => {
+        var chatMessage = {
+            senderName: userData.username,
+            status: "JOIN"
+        };
+        stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+        console.log(publicChats);
+    }
+
+    const onMessageReceived = (payload) => {
+        var payloadData = JSON.parse(payload.body);
+        switch (payloadData.status) {
+            case "JOIN":
+                if (!privateChats.get(payloadData.senderName)) {
+                    privateChats.set(payloadData.senderName, []);
+                    setPrivateChats(new Map(privateChats));
+                }
+                break;
+            case "MESSAGE":
+                publicChats.push(payloadData);
+                setPublicChats([...publicChats]);
+                break;
+        }
+    }
+
+    const onPrivateMessage = (payload) => {
+        console.log(payload);
+        var payloadData = JSON.parse(payload.body);
+        if (privateChats.get(payloadData.senderName)) {
+            privateChats.get(payloadData.senderName).push(payloadData);
+            setPrivateChats(new Map(privateChats));
+        } else {
+            let list = [];
+            list.push(payloadData);
+            privateChats.set(payloadData.senderName, list);
+            setPrivateChats(new Map(privateChats));
+        }
+    }
+
+    const onError = (err) => {
+        console.log(err);
+    }
+
+    const handleMessage = (event) => {
+        const { value } = event.target;
+        setUserData({ ...userData, "message": value });
+    }
+
+    const sendValue = () => {
+        if (stompClient) {
+            var chatMessage = {
+                senderName: userData.username,
+                message: userData.message, //yeni katılan kişinin adını admin otomatik yollasın
+                status: "MESSAGE"
+            };
+            console.log(chatMessage);
+            stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+            setUserData({ ...userData, "message": "" });
+        }
+    }
+
+    const sendPrivateValue = () => {
+        if (stompClient) {
+            var chatMessage = {
+                senderName: userData.username,
+                receiverName: tab,
+                message: userData.message,
+                status: "MESSAGE"
+            };
+
+            if (userData.username !== tab) {
+                privateChats.get(tab).push(chatMessage);
+                setPrivateChats(new Map(privateChats));
+            }
+            stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
+            setUserData({ ...userData, "message": "" });
+        }
+    }
+
+    const handleUsername = (event) => {
+        const { value } = event.target;
+        setUserData({ ...userData, "username": value });
+    }
+
+    const registerUser = () => {
+        connect();
+    }
+
+    //UPPER CODE IS FOR WEBSOCKET IMPLEMENTATION
+    const params = useParams();
     const userRole = params.role;
     const paramsSessionID = params.sessionID;
     const paramsName = params.name;
     const [sendCount, setSendCount] = useState(0);
+    userData.username = params.name; //Connect feature
+
+    async function fillTable(sessionID) {
+        let response = await AppService.getSessionUsers(sessionID);
+        console.log(response.data);
+        setSessionUsers(response.data);
+    }
+
+    useEffect(() => {
+        console.log(userData);
+        fillTable(paramsSessionID);
+    }, [userData]);
 
     const [task, setTask] = useState('');
     const handleRowClick = (params) => {
@@ -68,9 +196,9 @@ function PokerPage() {
 
     const updateUserPickCard = (chPickedCard, chIsPickedCard) => {
         let myRole = "";
-        if(userRole === "admin") {
+        if (userRole === "admin") {
             myRole = "true";
-        }else{
+        } else {
             myRole = "false";
         }
         let user = { name: paramsName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard, isAdmin: myRole };
@@ -189,41 +317,41 @@ function PokerPage() {
     const handleSendClick = () => {
         if (sendCount === 1) {
             alert("You have already sent your card.");
-        }else{
-            if (div1Clicked ) {
+        } else {
+            if (div1Clicked) {
                 updateUserPickCard("1", "true");
                 setSendSucceeded(true);
                 setSendCount((c) => c + 1);
             }
-            else if (div2Clicked ) {  
+            else if (div2Clicked) {
                 updateUserPickCard("2", "true");
                 setSendCount((c) => c + 1);
             }
-            else if (div3Clicked ) {
+            else if (div3Clicked) {
                 updateUserPickCard("3", "true");
                 setSendCount((c) => c + 1);
             }
-            else if (div5Clicked ) {
+            else if (div5Clicked) {
                 updateUserPickCard("5", "true");
                 setSendCount((c) => c + 1);
             }
-            else if (div8Clicked ) {
+            else if (div8Clicked) {
                 updateUserPickCard("8", "true");
                 setSendCount((c) => c + 1);
             }
-            else if (div13Clicked ) {
+            else if (div13Clicked) {
                 updateUserPickCard("13", "true");
                 setSendCount((c) => c + 1);
             }
-            else if (div21Clicked ) {
+            else if (div21Clicked) {
                 updateUserPickCard("21", "true");
                 setSendCount((c) => c + 1);
             }
-            else if (div34Clicked ) {
+            else if (div34Clicked) {
                 updateUserPickCard("34", "true");
                 setSendCount((c) => c + 1);
             }
-            else if (div55Clicked ) {
+            else if (div55Clicked) {
                 updateUserPickCard("55", "true");
                 setSendCount((c) => c + 1);
             }
@@ -231,7 +359,7 @@ function PokerPage() {
                 updateUserPickCard("89", "true");
                 setSendCount((c) => c + 1);
             }
-            else if (divQMClicked ) {
+            else if (divQMClicked) {
                 updateUserPickCard("?", "true");
                 setSendCount((c) => c + 1);
             }
@@ -275,69 +403,180 @@ function PokerPage() {
                                                     <DateTimeDisplay value={2} type={'Mins'} isDanger={false} />
                                                     <p>:</p>
                                                     <DateTimeDisplay value={59} type={'Seconds'} isDanger={false} />
+
                                                 </div>
                                             )}
                                         </div>
                                         <div>
                                             {(userRole === "admin") && (
-                                            <div onClick={() => handleStart()}>
-                                                <div style={{ width: 70, height: 25.26, left: 1290, top: 140, position: 'absolute', textAlign: 'center', backgroundColor: "orange", color: 'white', fontSize: 20, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "1px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30 }}>Start</div>
-                                            </div>
+                                                <div onClick={() => handleStart()}>
+                                                    <div style={{ width: 70, height: 25.26, left: 1290, top: 140, position: 'absolute', textAlign: 'center', backgroundColor: "orange", color: 'white', fontSize: 20, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "1px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30 }}>Start</div>
+                                                </div>
                                             )}
                                         </div>
                                         <div>
                                             {(userRole === "admin") && (
-                                            <div onClick={() => handleReset()}>
-                                                <div style={{ width: 70, height: 25.26, left: 1370, top: 140, position: 'absolute', textAlign: 'center', backgroundColor: "orange", color: 'white', fontSize: 20, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "1px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30 }}>Reset</div>
-                                            </div>
+                                                <div onClick={() => handleReset()}>
+                                                    <div style={{ width: 70, height: 25.26, left: 1370, top: 140, position: 'absolute', textAlign: 'center', backgroundColor: "orange", color: 'white', fontSize: 20, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "1px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30 }}>Reset</div>
+                                                </div>
                                             )}
                                         </div>
                                         <div>
                                             {(userRole === "admin") && (
-                                            <div onClick={() => handleLock()} style={{ width: 180, height: 60, left: 1270, top: 390, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Lock the game <LockIcon sx={{ fontSize: "40px", color: "white" }}></LockIcon></div>
+                                                <div onClick={() => handleLock()} style={{ width: 180, height: 60, left: 1270, top: 390, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Lock the game <LockIcon sx={{ fontSize: "40px", color: "white" }}></LockIcon></div>
                                             )}
                                         </div>
                                         <div>
                                             {(userRole === "admin") && (
-                                            <div onClick={() => handleInvite()} style={{ width: 180, height: 60, left: 1270, top: 470, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Invite people <PersonAddIcon sx={{ fontSize: "40px", color: "white" }}></PersonAddIcon></div>
+                                                <div onClick={() => handleInvite()} style={{ width: 180, height: 60, left: 1270, top: 470, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Invite people <PersonAddIcon sx={{ fontSize: "40px", color: "white" }}></PersonAddIcon></div>
                                             )}
                                         </div>
                                         <div>
                                             {(userRole === "admin") && (
-                                            <div onClick={() => handleAddTime()} style={{ width: 180, height: 60, left: 1270, top: 550, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Add time <MoreTimeIcon sx={{ fontSize: "40px", color: "white" }}></MoreTimeIcon></div>
+                                                <div onClick={() => handleAddTime()} style={{ width: 180, height: 60, left: 1270, top: 550, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Add time <MoreTimeIcon sx={{ fontSize: "40px", color: "white" }}></MoreTimeIcon></div>
                                             )}
                                         </div>
                                         <div>
                                             {(userRole === "admin") && (
-                                            <div onClick={() => handleRevealCards()} style={{ width: 180, height: 60, left: 1270, top: 630, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', paddingLeft: '3px', justifyContent: 'left', alignItems: 'center' }}>Reveal cards <RevealCard /></div>
+                                                <div onClick={() => handleRevealCards()} style={{ width: 180, height: 60, left: 1270, top: 630, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', paddingLeft: '3px', justifyContent: 'left', alignItems: 'center' }}>Reveal cards <RevealCard /></div>
                                             )}
                                         </div>
 
-                                        <div style={{ width: 60.33, height: 57.48, left: 260, top: 170, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 510, top: 90, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 710, top: 90, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 900, top: 90, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 1150, top: 170, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 1210, top: 330, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon> </div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 1150, top: 480, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 900, top: 570, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 710, top: 570, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 510, top: 570, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
-                                        <div style={{ width: 60.33, height: 57.48, left: 260, top: 480, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
                                         <div style={{ width: 60.33, height: 57.48, left: 205, top: 330, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
 
-                                        <div style={{ width: 95.52, height: 25.26, left: 240, top: 130, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Tuna</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 490, top: 55, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Kaan</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 690, top: 55, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Beyza</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 880, top: 55, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Berke</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 1130, top: 130, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Esin</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 1190, top: 295, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Hüseyin</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 1130, top: 550, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Onur</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 880, top: 630, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Sude</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 690, top: 630, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Gökhan</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 490, top: 630, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Olcay</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 240, top: 550, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>İbrahim</div>
-                                        <div style={{ width: 95.52, height: 25.26, left: 185, top: 295, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Kübra</div>
+                                        <div>
+                                            {(sessionUsers.length > 1) && (
+                                                <div style={{ width: 60.33, height: 57.48, left: 1210, top: 330, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon> </div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 2) && (
+                                                <div style={{ width: 60.33, height: 57.48, left: 710, top: 90, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 3) && (
+                                                <div style={{ width: 60.33, height: 57.48, left: 710, top: 570, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 4) && (
+                                                <div style={{ width: 60.33, height: 57.48, left: 510, top: 90, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 5) && (
+                                                <div style={{ width: 60.33, height: 57.48, left: 510, top: 570, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 6) && (
+                                                <div style={{ width: 60.33, height: 57.48, left: 900, top: 90, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 7) && (
+                                                <div style={{ width: 60.33, height: 57.48, left: 900, top: 570, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 8) && (
+                                                <div style={{ width: 60.33, height: 57.48, left: 260, top: 170, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 9) && (
+                                                <div style={{ width: 60.33, height: 57.48, left: 1150, top: 170, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 10) && (
+                                                <div style={{ width: 60.33, height: 57.48, left: 260, top: 480, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 11) && (
+                                                <div style={{ width: 60.33, height: 57.48, left: 1150, top: 480, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 8) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 240, top: 130, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[8]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 4) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 490, top: 55, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[4]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 2) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 690, top: 55, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[2]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 6) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 880, top: 55, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[6]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 9) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 1130, top: 130, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[9]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 1) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 1190, top: 295, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[1]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 11) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 1130, top: 550, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[11]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 7) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 880, top: 630, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[7]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 3) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 690, top: 630, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[3]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 5) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 490, top: 630, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[5]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 10) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 240, top: 550, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[10]}</div>
+                                            )}
+                                        </div>
+
+                                        <div style={{ width: 95.52, height: 25.26, left: 185, top: 295, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[0]}</div>
 
                                         <div style={{ width: 43.50, height: 56.35, left: 390, top: 280, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: '0 0' }}>
                                             <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
@@ -579,7 +818,7 @@ function PokerPage() {
 
                                     <div>
                                         {(userRole === "admin") && (
-                                        <div onClick={() => handleRestartGame()} style={{ width: 180, height: 60, left: 1270, top: 710, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Restart Game <RestartAltIcon sx={{ fontSize: "40px", color: "white" }}></RestartAltIcon></div>
+                                            <div onClick={() => handleRestartGame()} style={{ width: 180, height: 60, left: 1270, top: 710, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Restart Game <RestartAltIcon sx={{ fontSize: "40px", color: "white" }}></RestartAltIcon></div>
                                         )}
                                     </div>
                                     <div
@@ -595,6 +834,68 @@ function PokerPage() {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div className="container">
+                            {userData.connected ?
+                                <div className="chat-box">
+                                    <div className="member-list">
+                                        <ul>
+                                            <li onClick={() => { setTab("CHATROOM") }} className={`member ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
+                                            {[...privateChats.keys()].map((name, index) => (
+                                                <li onClick={() => { setTab(name) }} className={`member ${tab === name && "active"}`} key={index}>{name}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                    {tab === "CHATROOM" && <div className="chat-content">
+                                        <ul className="chat-messages">
+                                            {publicChats.map((chat, index) => (
+                                                <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
+                                                    {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
+                                                    <div className="message-data">{chat.message}</div>
+                                                    {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
+                                                </li>
+                                            ))}
+                                        </ul>
+
+                                        <div className="send-message">
+                                            <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} />
+                                            <button type="button" className="send-button" onClick={sendValue}>send</button>
+                                        </div>
+                                    </div>}
+                                    {tab !== "CHATROOM" && <div className="chat-content">
+                                        <ul className="chat-messages">
+                                            {[...privateChats.get(tab)].map((chat, index) => (
+                                                <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
+                                                    {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
+                                                    <div className="message-data">{chat.message}</div>
+                                                    {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
+                                                </li>
+                                            ))}
+                                        </ul>
+
+                                        <div className="send-message">
+                                            <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} />
+                                            <button type="button" className="send-button" onClick={sendPrivateValue}>send</button>
+                                        </div>
+                                    </div>}
+                                </div>
+                                :
+                                <div className="register">
+                                    <input
+                                        id="user-name"
+                                        placeholder="Enter your name"
+                                        name="userName"
+                                        value={userData.username}
+                                        onChange={handleUsername}
+                                        margin="normal"
+                                        readonly
+                                        disabled="true"
+                                    />
+                                    <button type="button" onClick={registerUser}>
+                                        Connect
+                                    </button>
+                                </div>}
                         </div>
                     </div>
                 </Row>

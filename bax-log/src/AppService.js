@@ -33,6 +33,10 @@ class AppService {
         return axios.get(USER_API_BASE_URL + '/' + userId);
     }
 
+    getSessionUsers(sessionID) {
+        return axios.get(USER_API_BASE_URL + '/' + sessionID);
+    } //BURAYI POKER PAGE İÇİN KULLAN
+
     deleteUser(userId) {
         return axios.delete(USER_API_BASE_URL + '/' + userId);
     }
