@@ -11,26 +11,25 @@ import com.baxlog.repository.SessionRepository;
 @RestController
 @RequestMapping("/api/baxlog")
 public class SessionController {
-    @Autowired
-    private SessionRepository sessionRepository;
+	@Autowired
+	private SessionRepository sessionRepository;
 
-    @GetMapping("/sessions")
-    public List<Session> getAllSessions(){
-        return sessionRepository.findAll();
-    }
-    
-    @GetMapping("/sessions/createcheck/{sessionID}")
-    public String checkCreateSession(@PathVariable String sessionID){
-    	String returnMessage = "Success";
-    	List<Session> allSessions = getAllSessions();
-    	for(int i=0; i<allSessions.size(); i++) {
-    		if(allSessions.get(i).getSessionID().equals(sessionID)) {
-    			returnMessage = "This Session ID is occupied";
-    		}
-    	}
+	@GetMapping("/sessions")
+	public List<Session> getAllSessions(){
+		return sessionRepository.findAll();
+	}
+
+	@GetMapping("/sessions/createcheck/{sessionID}")
+	public String checkCreateSession(@PathVariable String sessionID){
+		String returnMessage = "Success";
+		List<Session> allSessions = getAllSessions();
+		for(int i=0; i<allSessions.size(); i++) {
+			if(allSessions.get(i).getSessionID().equals(sessionID)) {
+				returnMessage = "This Session ID is occupied";
+			}
+		}
 		return returnMessage;
-    }
-
+	}
 
 	@GetMapping("/sessions/joincheck/{sessionID}")
 	public String checkJoinSession(@PathVariable String sessionID){
@@ -53,6 +52,19 @@ public class SessionController {
 		return returnMessage;
 	}
 
+	@GetMapping("/sessions/revealcheck/{sessionID}")
+	public String checkSessionRevealCard(@PathVariable String sessionID){
+		String returnMessage = "Not reveal";
+		List<Session> allSessions = getAllSessions();
+		for(int i=0; i<allSessions.size(); i++) {
+			if(allSessions.get(i).getSessionID().equals(sessionID)) {
+				if(allSessions.get(i).getIsReveal().equals("true")) {
+					returnMessage = "Reveal";
+				}
+			}
+		}
+		return returnMessage;
+	}
 
 	@PutMapping("/sessions/join/{sessionID}")
 	public ResponseEntity<Session> joinSession(@PathVariable String sessionID){
@@ -81,7 +93,6 @@ public class SessionController {
 		return ResponseEntity.ok(joinedSession);
 	}
 
-
 	@PutMapping("/sessions/lock/{sessionID}")
 	public ResponseEntity<Session> lockSession(@PathVariable String sessionID){
 		Session session = new Session();
@@ -97,18 +108,35 @@ public class SessionController {
 				session.setSessionAdminID(allSessions.get(i).getSessionAdminID());
 				session.setSessionAdmin(allSessions.get(i).getSessionAdmin());
 				lockedSession = sessionRepository.save(session);
-				}
 			}
+		}
 		return ResponseEntity.ok(lockedSession);
 	}
 
-
-
+	@PutMapping("/sessions/reveal/{sessionID}")
+	public ResponseEntity<Session> revealSessionCards(@PathVariable String sessionID){
+		Session session = new Session();
+		Session revealedSession = new Session();
+		List<Session> allSessions = getAllSessions();
+		for(int i=0; i<allSessions.size(); i++) {
+			if(allSessions.get(i).getSessionID().equals(sessionID)) {
+				allSessions.get(i).setIsReveal("true");
+				session.setIsReveal("true");
+				session.setPersonCount(allSessions.get(i).getPersonCount());
+				session.setSessionSQLid(allSessions.get(i).getSessionSQLid());
+				session.setSessionID(allSessions.get(i).getSessionID());
+				session.setSessionAdminID(allSessions.get(i).getSessionAdminID());
+				session.setSessionAdmin(allSessions.get(i).getSessionAdmin());
+				session.setIsLocked(allSessions.get(i).getIsLocked());
+				revealedSession = sessionRepository.save(session);
+			}
+		}
+		return ResponseEntity.ok(revealedSession);
+	}
 
 	@PostMapping("/sessions/save")
 	public Session createSession(@RequestBody Session session) {
 		session.setPersonCount(11);
 		return sessionRepository.save(session);
 	}
-
 }

@@ -6,18 +6,18 @@ import jakarta.persistence.*;
 @Table(name="sessions")
 public class Session {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long sessionSQLid;
-    
-    @Column(name = "session_id")
-    private String sessionID="";
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long sessionSQLid;
 
-    @Column(name = "session_admin")
-    private String sessionAdmin="";
+	@Column(name = "session_id")
+	private String sessionID="";
 
-    @Column(name = "session_admin_id")
-    private String sessionAdminID="";
+	@Column(name = "session_admin")
+	private String sessionAdmin="";
+
+	@Column(name = "session_admin_id")
+	private String sessionAdminID="";
 
 	@Column(name = "person_count")
 	private int personCount=12;
@@ -25,18 +25,21 @@ public class Session {
 	@Column(name = "is_locked")
 	private String isLocked="false";
 
+	@Column(name = "is_reveal")
+	private String isReveal="false";
 
-    public Session() {}
+	public Session() {}
 
-    public Session(long sessionSQLid, String session_id, String session_admin, String session_admin_id, int person_count, String is_locked) {
-        super();
-        this.sessionSQLid = sessionSQLid;
-        this.sessionID = session_id;
-        this.sessionAdmin = session_admin;
-        this.sessionAdminID = session_admin_id;
+	public Session(long sessionSQLid, String session_id, String session_admin, String session_admin_id, int person_count, String is_locked, String is_reveal) {
+		super();
+		this.sessionSQLid = sessionSQLid;
+		this.sessionID = session_id;
+		this.sessionAdmin = session_admin;
+		this.sessionAdminID = session_admin_id;
 		this.personCount = person_count;
 		this.isLocked = is_locked;
-    }
+		this.isReveal = is_reveal;
+	}
 
 	public long getSessionSQLid() {
 		return sessionSQLid;
@@ -84,5 +87,13 @@ public class Session {
 
 	public void setIsLocked(String isLocked) {
 		this.isLocked = isLocked;
+	}
+
+	public String getIsReveal() {
+		return isReveal;
+	}
+
+	public void setIsReveal(String isReveal) {
+		this.isReveal = isReveal;
 	}
 }

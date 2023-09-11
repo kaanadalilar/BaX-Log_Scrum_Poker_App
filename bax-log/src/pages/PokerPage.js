@@ -96,7 +96,6 @@ function PokerPage() {
 
     const onMessageReceived = (payload) => {
         var payloadData = JSON.parse(payload.body);
-        // eslint-disable-next-line default-case
         switch (payloadData.status) {
             case "JOIN":
                 if (!privateChats.get(payloadData.senderName)) {
@@ -138,7 +137,7 @@ function PokerPage() {
         if (stompClient) {
             var chatMessage = {
                 senderName: userData.username,
-                message: userData.message,  // new participant's name will be send automatically
+                message: userData.message,  // new participant's name will be sent automatically
                 status: "MESSAGE"
             };
             console.log(chatMessage);
@@ -182,14 +181,22 @@ function PokerPage() {
     const [sendCount, setSendCount] = useState(0);
     userData.username = params.name; //Connect feature
     const [open, setOpen] = useState(false);
+    const [revealOpen, setRevealOpen] = useState(false);
+    const [isAdminRevealed, setIsAdminRevealed] = useState(false);
 
     async function fillPokerTable(sessionID) {
         let userResponse = await AppService.getSessionUsers(sessionID);
         setSessionUsers(userResponse.data);
         let cardResponse = await AppService.getSessionUsersCards(sessionID);
         setSessionUsersCards(cardResponse.data);
-        console.log(sessionUsers);
-        console.log(sessionUsersCards);
+        let checkAdminReveal = await AppService.checkSessionRevealCard(sessionID);
+        if (checkAdminReveal.data === "Reveal") {
+            setIsAdminRevealed("true");
+            console.log(sessionUsersCards);
+        }
+        else {
+            setIsAdminRevealed("false");
+        }
     }
 
     useEffect(() => {
@@ -247,13 +254,15 @@ function PokerPage() {
         setOpen(true);
     };
 
-
     const handleAddTime = () => {
         console.log("Time is added.")
     };
 
     const handleRevealCards = () => {
-        console.log("Cards revealed.")
+        console.log("Cards revealed.");
+        AppService.revealSessionCards(paramsSessionID);
+        setRevealOpen(true);
+        setIsAdminRevealed(true);
     };
 
     const handleRestartGame = () => {
@@ -271,7 +280,6 @@ function PokerPage() {
     const [div55Clicked, setDiv55Clicked] = useState(false);
     const [div89Clicked, setDiv89Clicked] = useState(false);
     const [divQMClicked, setDivQMClicked] = useState(false);
-    const [sendSucceeded, setSendSucceeded] = useState(false);
 
     const handleDivClick = (divId) => {
         setDiv1Clicked(false);
@@ -331,7 +339,6 @@ function PokerPage() {
         } else {
             if (div1Clicked) {
                 updateUserPickCard("1", "true");
-                setSendSucceeded(true);
                 setSendCount((c) => c + 1);
             }
             else if (div2Clicked) {
@@ -441,23 +448,15 @@ function PokerPage() {
                                             {(userRole === "admin") && (
                                                 <div>
                                                     <div onClick={() => handleInvite()} style={{ width: 180, height: 60, left: 1270, top: 470, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Invite people <PersonAddIcon sx={{ fontSize: "40px", color: "white" }}>
-
                                                     </PersonAddIcon> </div>
                                                     <Snackbar
-
-                                                        message="Invite is copied"
-
+                                                        message="Invite message is copied"
                                                         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-
                                                         autoHideDuration={2000}
-
                                                         onClose={() => setOpen(false)}
-
                                                         open={open}
-
                                                     />
                                                 </div>
-
                                             )}
 
                                         </div>
@@ -468,7 +467,16 @@ function PokerPage() {
                                         </div>
                                         <div>
                                             {(userRole === "admin") && (
-                                                <div onClick={() => handleRevealCards()} style={{ width: 180, height: 60, left: 1270, top: 630, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', paddingLeft: '3px', justifyContent: 'left', alignItems: 'center' }}>Reveal cards <RevealCard /></div>
+                                                <div>
+                                                    <div onClick={() => handleRevealCards()} style={{ width: 180, height: 60, left: 1270, top: 630, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', paddingLeft: '3px', justifyContent: 'left', alignItems: 'center' }}>Reveal cards <RevealCard /></div>
+                                                    <Snackbar
+                                                        message="Cards are revealed"
+                                                        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                                                        autoHideDuration={2000}
+                                                        onClose={() => setRevealOpen(false)}
+                                                        open={revealOpen}
+                                                    />
+                                                </div>
                                             )}
                                         </div>
 
@@ -607,11 +615,13 @@ function PokerPage() {
                                                 <div style={{ width: 95.52, height: 25.26, left: 1130, top: 550, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[11]}</div>
                                             )}
                                         </div>
-                                        
+
                                         <div style={{ width: 43.50, height: 56.35, left: 420, top: 330, position: 'absolute', transform: 'rotate(90deg)', transformOrigin: '0 0' }}>
                                             <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ backgroundColor: !(sessionUsersCards[0] === "" ) ? 'rgba(255, 0, 0, 0.8)' : "white",width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                <div style={{ width: 19, height: 19, left: 0, top: -1, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                <div style={{ backgroundColor: !(sessionUsersCards[0] === "") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                <div style={{ width: 19, height: 19, left: 0, top: -1, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                    {isAdminRevealed === "true" ? sessionUsersCards[0] : <div>A</div>}
+                                                </div>
                                             </div>
                                             <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                 <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -622,8 +632,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 1) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 1050, top: 375, position: 'absolute', transform: 'rotate(-90deg)', transformOrigin: '0 0' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ backgroundColor: !(sessionUsersCards[1] === "" ) ? 'rgba(255, 0, 0, 0.8)' : "white",width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute',  boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: -1, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[1] === "") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: -1, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[1] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -636,9 +648,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 2) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 715, top: 220, position: 'absolute' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ backgroundColor: !(sessionUsersCards[2] === "" ) ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
-
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[2] === "") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[2] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -651,8 +664,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 3) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 715, top: 440, position: 'absolute' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ backgroundColor: !(sessionUsersCards[3] === "" ) ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute',  boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[3] === "") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[3] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -665,8 +680,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 4) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 520, top: 220, position: 'absolute' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{backgroundColor: !(sessionUsersCards[4] === "" ) ? 'rgba(255, 0, 0, 0.8)' : "white",  width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute',  boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[4] === "") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[4] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -679,8 +696,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 5) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 520, top: 440, position: 'absolute' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ backgroundColor: !(sessionUsersCards[5] === "" ) ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute',  boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[5] === "") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[5] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -693,8 +712,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 6) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 905, top: 220, position: 'absolute' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ backgroundColor: !(sessionUsersCards[6] === "" ) ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute',  boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[6] === "") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[6] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -707,8 +728,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 7) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 905, top: 440, position: 'absolute' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ backgroundColor: !(sessionUsersCards[7] === "" ) ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute',  boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[7] === "") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[7] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -721,8 +744,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 8) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 390, top: 280, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: '0 0' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{  backgroundColor: !(sessionUsersCards[8] === "" ) ? 'rgba(255, 0, 0, 0.8)' : "white",width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute',  boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[8] === "") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[8] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -735,8 +760,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 9) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 1045, top: 240, position: 'absolute', transform: 'rotate(45deg)', transformOrigin: '0 0' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ backgroundColor: !(sessionUsersCards[9] === "" ) ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute',  boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[9] === "") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[9] : <div>A</div>}
+                                                        </div>
 
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
@@ -750,8 +777,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 10) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 425, top: 390, position: 'absolute', transform: 'rotate(45deg)', transformOrigin: '0 0' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ backgroundColor: !(sessionUsersCards[10] === "" ) ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute',  boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 18.88, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[10] === "") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 18.88, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[2] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -764,8 +793,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 11) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 1005, top: 435, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: '0 0' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{backgroundColor: !(sessionUsersCards[11] === "" ) ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[11] === "") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[11] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>

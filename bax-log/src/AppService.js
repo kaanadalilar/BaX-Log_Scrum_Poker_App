@@ -29,6 +29,10 @@ class AppService {
         return axios.get(SESSION_API_BASE_URL + '/createcheck/' + sessionID);
     }
 
+    checkSessionRevealCard(sessionID) {
+        return axios.get(SESSION_API_BASE_URL + '/revealcheck/' + sessionID);
+    }
+
     getUserById(userId) {
         return axios.get(USER_API_BASE_URL + '/' + userId);
     }
@@ -63,6 +67,10 @@ class AppService {
 
     lockSession(sessionID) {
         return axios.put(SESSION_API_BASE_URL + '/lock/' + sessionID);
+    }
+
+    revealSessionCards(sessionID) {
+        return axios.put(SESSION_API_BASE_URL + '/reveal/' + sessionID);
     }
 }
 

@@ -65,7 +65,7 @@ public class UserController {
 		}
 		return returnMessage;
 	}
-	
+
 	@GetMapping("/users/{sessionID}")
 	public JSONArray getSessionUsers(@PathVariable String sessionID){
 		JSONArray list = new JSONArray();
@@ -75,7 +75,7 @@ public class UserController {
 				String name = allUsers.get(i).getName().substring(7);
 				list.add(name);
 			}
-		}		
+		}
 		return list;
 	}
 
@@ -91,7 +91,4 @@ public class UserController {
 		}
 		return list;
 	}
-
-
-
 }
