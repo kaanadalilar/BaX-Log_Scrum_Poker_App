@@ -17,6 +17,9 @@ import DateTimeDisplay from '../hooks/DateTimeDisplay';
 import AppService from '../AppService';
 import { useParams } from "react-router-dom";
 import "./PokerPage.css";
+import { Snackbar } from "@mui/material";
+
+
 
 var stompClient = null;
 
@@ -69,6 +72,7 @@ function PokerPage() {
         connected: false,
         message: ''
     });
+    
 
     const connect = () => {
         let Sock = new SockJS('http://localhost:8080/ws');
@@ -94,6 +98,7 @@ function PokerPage() {
 
     const onMessageReceived = (payload) => {
         var payloadData = JSON.parse(payload.body);
+        // eslint-disable-next-line default-case
         switch (payloadData.status) {
             case "JOIN":
                 if (!privateChats.get(payloadData.senderName)) {
@@ -136,7 +141,7 @@ function PokerPage() {
         if (stompClient) {
             var chatMessage = {
                 senderName: userData.username,
-                message: userData.message, //yeni katılan kişinin adını admin otomatik yollasın
+                message: userData.message,  // new participant's name will be send automatically
                 status: "MESSAGE"
             };
             console.log(chatMessage);
@@ -179,6 +184,7 @@ function PokerPage() {
     const paramsName = params.name;
     const [sendCount, setSendCount] = useState(0);
     userData.username = params.name; //Connect feature
+    const [open, setOpen] = useState(false);
 
     async function fillPokerTable(sessionID) {
         let response = await AppService.getSessionUsers(sessionID);
@@ -230,12 +236,16 @@ function PokerPage() {
     };
 
     const handleLock = () => {
+        AppService.lockSession(paramsSessionID);
+        alert("Session locked")
         console.log("Game is locked.")
     };
 
     const handleInvite = () => {
-        console.log("Player is invited.")
+        navigator.clipboard.writeText("Join our BaX-Log session. Click the URL: http://localhost:3000/. SessionID is " + paramsSessionID);
+        setOpen(true);
     };
+    
 
     const handleAddTime = () => {
         console.log("Time is added.")
@@ -428,8 +438,27 @@ function PokerPage() {
                                         </div>
                                         <div>
                                             {(userRole === "admin") && (
-                                                <div onClick={() => handleInvite()} style={{ width: 180, height: 60, left: 1270, top: 470, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Invite people <PersonAddIcon sx={{ fontSize: "40px", color: "white" }}></PersonAddIcon></div>
+                                                <div>
+                                                <div onClick={() => handleInvite()} style={{ width: 180, height: 60, left: 1270, top: 470, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Invite people <PersonAddIcon sx={{ fontSize: "40px", color: "white" }}>
+                                                   
+                                                </PersonAddIcon> </div>
+                                                <Snackbar
+
+                                                message="Invite is copied"
+                                        
+                                                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                                        
+                                                autoHideDuration={2000}
+                                        
+                                                onClose={() => setOpen(false)}
+                                        
+                                                open={open}
+                                        
+                                              />
+                                              </div>
+                                                    
                                             )}
+                                        
                                         </div>
                                         <div>
                                             {(userRole === "admin") && (

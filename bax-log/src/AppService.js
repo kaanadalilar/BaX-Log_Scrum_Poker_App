@@ -56,6 +56,10 @@ class AppService {
     checkUsernameExists(name) {
         return axios.get(USER_API_BASE_URL + '/usernamecheck/' + name);
     }
+
+    lockSession(sessionID){
+        return axios.put(SESSION_API_BASE_URL + '/lock/' + sessionID);
+    }
 }
 
 export default new AppService()

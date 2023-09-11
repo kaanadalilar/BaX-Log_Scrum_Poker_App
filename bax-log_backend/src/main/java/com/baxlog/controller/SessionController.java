@@ -39,7 +39,11 @@ public class SessionController {
 		for(int i=0; i<allSessions.size(); i++) {
 			if(allSessions.get(i).getSessionID().equals(sessionID)) {
 				if (allSessions.get(i).getPersonCount() < 12 && allSessions.get(i).getPersonCount() >0) {
-					returnMessage = "Success";
+					if(allSessions.get(i).getIsLocked().equals("true") ){
+						returnMessage = "Session is locked";
+					}else{
+						returnMessage = "Success";
+					}
 				}
 				else{
 					returnMessage= "Session is full";
@@ -68,7 +72,7 @@ public class SessionController {
 					session.setSessionID(allSessions.get(i).getSessionID());
 					session.setSessionAdminID(allSessions.get(i).getSessionAdminID());
 					session.setSessionAdmin(allSessions.get(i).getSessionAdmin());
-
+					session.setIsLocked(allSessions.get(i).getIsLocked());
 					joinedSession = sessionRepository.save(session);
 				}
 
@@ -78,13 +82,33 @@ public class SessionController {
 	}
 
 
+	@PutMapping("/sessions/lock/{sessionID}")
+	public ResponseEntity<Session> lockSession(@PathVariable String sessionID){
+		Session session = new Session();
+		Session lockedSession = new Session();
+		List<Session> allSessions = getAllSessions();
+		for(int i=0; i<allSessions.size(); i++) {
+			if(allSessions.get(i).getSessionID().equals(sessionID)) {
+				allSessions.get(i).setIsLocked("true");
+				session.setIsLocked("true");
+				session.setPersonCount(allSessions.get(i).getPersonCount());
+				session.setSessionSQLid(allSessions.get(i).getSessionSQLid());
+				session.setSessionID(allSessions.get(i).getSessionID());
+				session.setSessionAdminID(allSessions.get(i).getSessionAdminID());
+				session.setSessionAdmin(allSessions.get(i).getSessionAdmin());
+				lockedSession = sessionRepository.save(session);
+				}
+			}
+		return ResponseEntity.ok(lockedSession);
+	}
+
+
+
 
 	@PostMapping("/sessions/save")
 	public Session createSession(@RequestBody Session session) {
 		session.setPersonCount(11);
 		return sessionRepository.save(session);
 	}
-
-
 
 }
