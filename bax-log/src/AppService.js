@@ -37,6 +37,10 @@ class AppService {
         return axios.get(USER_API_BASE_URL + '/' + sessionID);
     }
 
+    getSessionUsersCards(sessionID) {
+        return axios.get(USER_API_BASE_URL + '/card/' + sessionID);
+    }
+
     deleteUser(userId) {
         return axios.delete(USER_API_BASE_URL + '/' + userId);
     }

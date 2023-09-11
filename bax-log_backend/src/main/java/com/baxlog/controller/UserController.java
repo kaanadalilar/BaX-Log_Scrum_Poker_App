@@ -79,4 +79,19 @@ public class UserController {
 		return list;
 	}
 
+	@GetMapping("/users/card/{sessionID}")
+	public JSONArray getSessionUsersCards(@PathVariable String sessionID){
+		JSONArray list = new JSONArray();
+		List<User> allUsers = getAllUsers();
+		for(int i=0; i<allUsers.size(); i++) {
+			if(allUsers.get(i).getSessionID().equals(sessionID)) {
+				String card = allUsers.get(i).getPickedCard();
+				list.add(card);
+			}
+		}
+		return list;
+	}
+
+
+
 }
