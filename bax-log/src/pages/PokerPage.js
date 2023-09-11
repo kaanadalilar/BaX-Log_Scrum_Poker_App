@@ -19,8 +19,6 @@ import { useParams } from "react-router-dom";
 import "./PokerPage.css";
 import { Snackbar } from "@mui/material";
 
-
-
 var stompClient = null;
 
 const columns = [
@@ -73,7 +71,6 @@ function PokerPage() {
         message: ''
     });
 
-
     const connect = () => {
         let Sock = new SockJS('http://localhost:8080/ws');
         stompClient = over(Sock);
@@ -98,13 +95,11 @@ function PokerPage() {
 
     const onMessageReceived = (payload) => {
         var payloadData = JSON.parse(payload.body);
-        // eslint-disable-next-line default-case
         switch (payloadData.status) {
             case "JOIN":
                 if (!privateChats.get(payloadData.senderName)) {
                     privateChats.set(payloadData.senderName, []);
                     setPrivateChats(new Map(privateChats));
-                    setSessionUsers(new Map(privateChats));
                 }
                 break;
             case "MESSAGE":

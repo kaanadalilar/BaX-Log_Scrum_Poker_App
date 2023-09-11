@@ -1,6 +1,5 @@
 package com.baxlog.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.*;
@@ -33,18 +32,19 @@ public class UserController {
 	@PutMapping("/users/{name}")
 	public ResponseEntity<User> updateUser(@PathVariable String name, @RequestBody User userDetails ){
 		User user = new User();
+		User updatedUser = new User();
 		List<User> allUsers = getAllUsers();
 		for(int i=0; i<allUsers.size(); i++) {
 			if(allUsers.get(i).getName().equals(name)) {
+				user = allUsers.get(i);
 				user.setName(userDetails.getName());
 				user.setPickedCard(userDetails.getPickedCard());
 				user.setIsPickedCard(userDetails.getIsPickedCard());
 				user.setIsAdmin(userDetails.getIsAdmin());
 				user.setSessionID(userDetails.getSessionID());
+				updatedUser = userRepository.save(user);
 			}
 		}
-
-		User updatedUser = userRepository.save(user);
 		return ResponseEntity.ok(updatedUser);
 	}
 
@@ -60,7 +60,6 @@ public class UserController {
 		List<User> allUsers = getAllUsers();
 		for(int i=0; i<allUsers.size(); i++) {
 			if(allUsers.get(i).getName().equals(name)) {
-				System.out.println(name);
 				returnMessage = "There is already someone with this name";
 			}
 		}
