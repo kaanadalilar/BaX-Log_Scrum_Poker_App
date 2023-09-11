@@ -72,7 +72,7 @@ function PokerPage() {
         connected: false,
         message: ''
     });
-    
+
 
     const connect = () => {
         let Sock = new SockJS('http://localhost:8080/ws');
@@ -207,7 +207,7 @@ function PokerPage() {
         } else {
             myRole = "false";
         }
-        let user = { name: paramsName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard, isAdmin: myRole };
+        let user = { name: paramsName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard, isAdmin: myRole, sessionID: paramsSessionID };
         console.log('user => ' + JSON.stringify(user));
         AppService.updateUser(paramsName, user);
     }
@@ -245,7 +245,7 @@ function PokerPage() {
         navigator.clipboard.writeText("Join our BaX-Log session. Click the URL: http://localhost:3000/. SessionID is " + paramsSessionID);
         setOpen(true);
     };
-    
+
 
     const handleAddTime = () => {
         console.log("Time is added.")
@@ -439,26 +439,26 @@ function PokerPage() {
                                         <div>
                                             {(userRole === "admin") && (
                                                 <div>
-                                                <div onClick={() => handleInvite()} style={{ width: 180, height: 60, left: 1270, top: 470, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Invite people <PersonAddIcon sx={{ fontSize: "40px", color: "white" }}>
-                                                   
-                                                </PersonAddIcon> </div>
-                                                <Snackbar
+                                                    <div onClick={() => handleInvite()} style={{ width: 180, height: 60, left: 1270, top: 470, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Invite people <PersonAddIcon sx={{ fontSize: "40px", color: "white" }}>
 
-                                                message="Invite is copied"
-                                        
-                                                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                                        
-                                                autoHideDuration={2000}
-                                        
-                                                onClose={() => setOpen(false)}
-                                        
-                                                open={open}
-                                        
-                                              />
-                                              </div>
-                                                    
+                                                    </PersonAddIcon> </div>
+                                                    <Snackbar
+
+                                                        message="Invite is copied"
+
+                                                        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+
+                                                        autoHideDuration={2000}
+
+                                                        onClose={() => setOpen(false)}
+
+                                                        open={open}
+
+                                                    />
+                                                </div>
+
                                             )}
-                                        
+
                                         </div>
                                         <div>
                                             {(userRole === "admin") && (

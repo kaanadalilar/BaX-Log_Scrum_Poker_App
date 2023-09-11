@@ -11,19 +11,19 @@ public class Session {
     private long sessionSQLid;
     
     @Column(name = "session_id")
-    private String sessionID;
+    private String sessionID="";
 
     @Column(name = "session_admin")
-    private String sessionAdmin;
+    private String sessionAdmin="";
 
     @Column(name = "session_admin_id")
-    private String sessionAdminID;
+    private String sessionAdminID="";
 
 	@Column(name = "person_count")
 	private int personCount=12;
 
 	@Column(name = "is_locked")
-	private String isLocked;
+	private String isLocked="false";
 
 
     public Session() {}

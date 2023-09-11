@@ -10,19 +10,19 @@ public class User {
 	private long userID;
 
 	@Column(name = "name")
-	private String name;
+	private String name="";
 
 	@Column(name = "picked_card")
-	private String pickedCard;
+	private String pickedCard="";
 
 	@Column(name = "is_picked_card")
-	private String isPickedCard;
+	private String isPickedCard="";
 
 	@Column(name = "is_admin")
-	private String isAdmin;
+	private String isAdmin="";
 
 	@Column(name = "session_id")
-	private String sessionID;
+	private String sessionID="";
 
 
 	public User() {}
