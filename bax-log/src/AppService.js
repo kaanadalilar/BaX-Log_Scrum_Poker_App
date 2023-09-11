@@ -14,20 +14,28 @@ class AppService {
     }
 
     createUser(user) {
-        return axios.post(USER_API_BASE_URL, user);
+        return axios.post(USER_API_BASE_URL + '/save', user);
     }
 
     createSession(session) {
-        return axios.post(SESSION_API_BASE_URL, session);
+        return axios.post(SESSION_API_BASE_URL + '/save', session);
+    }
+
+    checkJoinSession(sessionID) {
+        return axios.get(SESSION_API_BASE_URL + '/joincheck/' + sessionID);
+    }
+
+    checkCreateSession(sessionID) {
+        return axios.get(SESSION_API_BASE_URL + '/createcheck/' + sessionID);
     }
 
     getUserById(userId) {
         return axios.get(USER_API_BASE_URL + '/' + userId);
     }
 
-    getSessionById(sessionId) {
-        return axios.get(SESSION_API_BASE_URL + '/' + sessionId);
-    }
+    getSessionUsers(sessionID) {
+        return axios.get(USER_API_BASE_URL + '/' + sessionID);
+    } //BURAYI POKER PAGE İÇİN KULLAN
 
     deleteUser(userId) {
         return axios.delete(USER_API_BASE_URL + '/' + userId);
@@ -37,8 +45,16 @@ class AppService {
         return axios.delete(SESSION_API_BASE_URL + '/' + sessionId);
     }
 
-    updateUser(userId, user) {
-        return axios.put(USER_API_BASE_URL + '/' + userId, user);
+    updateUser(name, user) {
+        return axios.put(USER_API_BASE_URL + '/' + name, user);
+    }
+
+    joinSession(sessionID) {
+        return axios.put(SESSION_API_BASE_URL + '/join/' + sessionID);
+    }
+
+    checkUsernameExists(name) {
+        return axios.get(USER_API_BASE_URL + '/usernamecheck/' + name);
     }
 }
 

@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61bfcb0e-6846-4783-b2cc-b6989fb78717" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/bax-log_backend/src/main/java/com/baxlog/controller/SessionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bax-log_backend/src/main/java/com/baxlog/model/Session.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bax-log_backend/src/main/java/com/baxlog/repository/SessionRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bax-log/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/bax-log/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bax-log/src/AppService.js" beforeDir="false" afterPath="$PROJECT_DIR$/bax-log/src/AppService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bax-log/src/pages/LandingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/bax-log/src/pages/LandingPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bax-log/src/pages/PokerPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/bax-log/src/pages/PokerPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bax-log_backend/src/main/java/com/baxlog/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bax-log_backend/src/main/java/com/baxlog/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bax-log_backend/src/main/java/com/baxlog/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/bax-log_backend/src/main/java/com/baxlog/model/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +59,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.idesettings.debugger.capture&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.tools&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;ff9b183127ebe5b53f54d619f9564807&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -125,7 +125,12 @@
       <updated>1691696128250</updated>
       <workItem from="1691696129999" duration="2250000" />
       <workItem from="1691753148534" duration="1767000" />
-      <workItem from="1693581205986" duration="578000" />
+      <workItem from="1693581205986" duration="924000" />
+      <workItem from="1693832352424" duration="1325000" />
+      <workItem from="1693839865825" duration="886000" />
+      <workItem from="1693911903183" duration="1863000" />
+      <workItem from="1693936297706" duration="1553000" />
+      <workItem from="1693990897014" duration="9312000" />
     </task>
     <servers />
   </component>

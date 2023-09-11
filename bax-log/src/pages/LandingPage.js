@@ -1,10 +1,9 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -20,6 +19,42 @@ export default function LandingPage() {
 
   const [createClicked, setCreateClicked] = useState(false);
   const [joinClicked, setJoinClicked] = useState(false);
+  const navigate = useNavigate();
+
+  async function tryJoin(sessionID, newUser) {
+    let response = await AppService.checkJoinSession(sessionID);
+    if (response.data === "Success") {
+      let newResponse = await AppService.checkUsernameExists(newUser.name);
+      console.log(newResponse.data);
+      if (newResponse.data === "Success") {
+        AppService.createUser(newUser);
+        AppService.joinSession(sessionID);
+        alert("You are about to enjoy the game")
+        navigate(`/game/${sessionID}/guest/${newUser.name}`)
+      } else {
+        alert("Username already exists :(")
+      }
+    } else if (response.data === "Session is full") {
+      alert("Session is full :(")
+    }
+    else {
+      alert("There is no such session :(")
+    }
+  }
+
+  async function tryCreate(sessionID, newUser, newSession) {
+    let response = await AppService.checkCreateSession(sessionID);
+    if (response.data === "Success") {
+      AppService.createUser(newUser);
+      AppService.createSession(newSession);
+      alert("You are about to enjoy the game")
+      navigate(`/game/${sessionID}/admin/${newUser.name}`)
+    }
+    else {
+      alert("This Session ID is already taken :(")
+    }
+  }
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,25 +68,17 @@ export default function LandingPage() {
       alert("Username cannot include blanks!")
     }
     if (createClicked) {
-      console.log(
-        "CREATE SESSION", { sessionID, username }
-      );
-
+      let dbUsername = sessionID + "-" + username;
+      console.log(dbUsername);
+      let newUser = { name: dbUsername, pickedCard: "", isPickedCard: "false", isAdmin: "true", sessionID: sessionID };
+      let newSession = { sessionID: sessionID, sessionAdmin: username, sessionAdminID: "121121" };
+      tryCreate(sessionID, newUser, newSession);
     }
     else if (joinClicked) {
-      console.log(
-        "JOIN SESSION", { sessionID, username }
-      );
-      if (sessionID[0] === 0) {
-        let newSessionId = sessionID[1, 6];
-        let mySession = AppService.getSessionById(newSessionId);
-        console.log(mySession);
-      }
-      else {
-        let mySession = AppService.getSessionById(sessionID);
-        console.log(mySession);
-      }
-
+      let dbUsername = sessionID + "-" + username;
+      console.log(dbUsername);
+      let newUser = { name: dbUsername, pickedCard: "", isPickedCard: "false", isAdmin: "false", sessionID: sessionID };
+      tryJoin(sessionID, newUser);
     }
   };
 
@@ -126,6 +153,7 @@ export default function LandingPage() {
             BaX-Log 2023
             {'.'}
           </Typography>
+
         </Container>
       </ThemeProvider>
     </div >
