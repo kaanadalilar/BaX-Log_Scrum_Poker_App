@@ -55,13 +55,14 @@ const rows = [
     { id: 27, status: 'Passive', header: '#234', description: "Task description will be here" },
     { id: 28, status: 'Passive', header: '#234', description: "Task description will be here" },
     { id: 29, status: 'Passive', header: '#234', description: "Task description will be here" },
+    { id: 30, status: 'Passive', header: '#234', description: "Task description will be here" },
 ];
 
 function PokerPage() {
     const [privateChats, setPrivateChats] = useState(new Map());
     const [publicChats, setPublicChats] = useState([]);
-    const [sessionUsers, setSessionUsers] = useState([]);
     const [tab, setTab] = useState("CHATROOM");
+    const [sessionUsers, setSessionUsers] = useState([]);
     const [userData, setUserData] = useState({
         username: '',
         receivername: '',
@@ -98,6 +99,7 @@ function PokerPage() {
                 if (!privateChats.get(payloadData.senderName)) {
                     privateChats.set(payloadData.senderName, []);
                     setPrivateChats(new Map(privateChats));
+                    setSessionUsers(new Map(privateChats));
                 }
                 break;
             case "MESSAGE":
@@ -178,16 +180,14 @@ function PokerPage() {
     const [sendCount, setSendCount] = useState(0);
     userData.username = params.name; //Connect feature
 
-    async function fillTable(sessionID) {
+    async function fillPokerTable(sessionID) {
         let response = await AppService.getSessionUsers(sessionID);
-        console.log(response.data);
         setSessionUsers(response.data);
     }
 
     useEffect(() => {
-        console.log(userData);
-        fillTable(paramsSessionID);
-    }, [userData]);
+        fillPokerTable(paramsSessionID);
+    }, [userData, [privateChats]]);
 
     const [task, setTask] = useState('');
     const handleRowClick = (params) => {
@@ -510,15 +510,11 @@ function PokerPage() {
                                             )}
                                         </div>
 
-                                        <div>
-                                            {(sessionUsers.length > 8) && (
-                                                <div style={{ width: 95.52, height: 25.26, left: 240, top: 130, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[8]}</div>
-                                            )}
-                                        </div>
+                                        <div style={{ width: 95.52, height: 25.26, left: 185, top: 295, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[0]}</div>
 
                                         <div>
-                                            {(sessionUsers.length > 4) && (
-                                                <div style={{ width: 95.52, height: 25.26, left: 490, top: 55, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[4]}</div>
+                                            {(sessionUsers.length > 1) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 1190, top: 295, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[1]}</div>
                                             )}
                                         </div>
 
@@ -529,38 +525,14 @@ function PokerPage() {
                                         </div>
 
                                         <div>
-                                            {(sessionUsers.length > 6) && (
-                                                <div style={{ width: 95.52, height: 25.26, left: 880, top: 55, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[6]}</div>
-                                            )}
-                                        </div>
-
-                                        <div>
-                                            {(sessionUsers.length > 9) && (
-                                                <div style={{ width: 95.52, height: 25.26, left: 1130, top: 130, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[9]}</div>
-                                            )}
-                                        </div>
-
-                                        <div>
-                                            {(sessionUsers.length > 1) && (
-                                                <div style={{ width: 95.52, height: 25.26, left: 1190, top: 295, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[1]}</div>
-                                            )}
-                                        </div>
-
-                                        <div>
-                                            {(sessionUsers.length > 11) && (
-                                                <div style={{ width: 95.52, height: 25.26, left: 1130, top: 550, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[11]}</div>
-                                            )}
-                                        </div>
-
-                                        <div>
-                                            {(sessionUsers.length > 7) && (
-                                                <div style={{ width: 95.52, height: 25.26, left: 880, top: 630, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[7]}</div>
-                                            )}
-                                        </div>
-
-                                        <div>
                                             {(sessionUsers.length > 3) && (
                                                 <div style={{ width: 95.52, height: 25.26, left: 690, top: 630, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[3]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 4) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 490, top: 55, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[4]}</div>
                                             )}
                                         </div>
 
@@ -571,123 +543,39 @@ function PokerPage() {
                                         </div>
 
                                         <div>
+                                            {(sessionUsers.length > 6) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 880, top: 55, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[6]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 7) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 880, top: 630, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[7]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 8) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 240, top: 130, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[8]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 9) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 1130, top: 130, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[9]}</div>
+                                            )}
+                                        </div>
+
+                                        <div>
                                             {(sessionUsers.length > 10) && (
                                                 <div style={{ width: 95.52, height: 25.26, left: 240, top: 550, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[10]}</div>
                                             )}
                                         </div>
 
-                                        <div style={{ width: 95.52, height: 25.26, left: 185, top: 295, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[0]}</div>
-
-                                        <div style={{ width: 43.50, height: 56.35, left: 390, top: 280, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: '0 0' }}>
-                                            <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ backgroundColor: (sendSucceeded) ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
-                                            </div>
-                                            <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
-                                                <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
-                                            </div>
-                                        </div>
-
-                                        <div style={{ width: 43.50, height: 56.35, left: 520, top: 220, position: 'absolute' }}>
-                                            <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
-                                            </div>
-                                            <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
-                                                <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
-                                            </div>
-                                        </div>
-
-                                        <div style={{ width: 43.50, height: 56.35, left: 715, top: 220, position: 'absolute' }}>
-                                            <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
-
-                                            </div>
-                                            <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
-                                                <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
-                                            </div>
-                                        </div>
-
-                                        <div style={{ width: 43.50, height: 56.35, left: 905, top: 220, position: 'absolute' }}>
-                                            <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
-                                            </div>
-                                            <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
-                                                <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
-                                            </div>
-                                        </div>
-
-                                        <div style={{ width: 43.50, height: 56.35, left: 1045, top: 240, position: 'absolute', transform: 'rotate(45deg)', transformOrigin: '0 0' }}>
-                                            <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
-
-                                            </div>
-                                            <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
-                                                <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
-                                            </div>
-                                        </div>
-
-                                        <div style={{ width: 43.50, height: 56.35, left: 1050, top: 375, position: 'absolute', transform: 'rotate(-90deg)', transformOrigin: '0 0' }}>
-                                            <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                <div style={{ width: 19, height: 19, left: 0, top: -1, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
-                                            </div>
-                                            <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
-                                                <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
-                                            </div>
-                                        </div>
-
-                                        <div style={{ width: 43.50, height: 56.35, left: 1005, top: 435, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: '0 0' }}>
-                                            <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
-                                            </div>
-                                            <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
-                                                <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
-                                            </div>
-                                        </div>
-
-                                        <div style={{ width: 43.50, height: 56.35, left: 905, top: 440, position: 'absolute' }}>
-                                            <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
-                                            </div>
-                                            <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
-                                                <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
-                                            </div>
-                                        </div>
-
-                                        <div style={{ width: 43.50, height: 56.35, left: 715, top: 440, position: 'absolute' }}>
-                                            <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
-                                            </div>
-                                            <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
-                                                <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
-                                            </div>
-                                        </div>
-
-                                        <div style={{ width: 43.50, height: 56.35, left: 520, top: 440, position: 'absolute' }}>
-                                            <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
-                                            </div>
-                                            <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
-                                                <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
-                                            </div>
-                                        </div>
-
-                                        <div style={{ width: 43.50, height: 56.35, left: 425, top: 390, position: 'absolute', transform: 'rotate(45deg)', transformOrigin: '0 0' }}>
-                                            <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                <div style={{ width: 19, height: 18.88, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
-                                            </div>
-                                            <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
-                                                <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
-                                            </div>
+                                        <div>
+                                            {(sessionUsers.length > 11) && (
+                                                <div style={{ width: 95.52, height: 25.26, left: 1130, top: 550, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>{sessionUsers[11]}</div>
+                                            )}
                                         </div>
 
                                         <div style={{ width: 43.50, height: 56.35, left: 420, top: 330, position: 'absolute', transform: 'rotate(90deg)', transformOrigin: '0 0' }}>
@@ -699,6 +587,163 @@ function PokerPage() {
                                                 <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
                                             </div>
                                         </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 1) && (
+                                                <div style={{ width: 43.50, height: 56.35, left: 1050, top: 375, position: 'absolute', transform: 'rotate(-90deg)', transformOrigin: '0 0' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: -1, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 2) && (
+                                                <div style={{ width: 43.50, height: 56.35, left: 715, top: 220, position: 'absolute' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 3) && (
+                                                <div style={{ width: 43.50, height: 56.35, left: 715, top: 440, position: 'absolute' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 4) && (
+                                                <div style={{ width: 43.50, height: 56.35, left: 520, top: 220, position: 'absolute' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 5) && (
+                                                <div style={{ width: 43.50, height: 56.35, left: 520, top: 440, position: 'absolute' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 6) && (
+                                                <div style={{ width: 43.50, height: 56.35, left: 905, top: 220, position: 'absolute' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 7) && (
+                                                <div style={{ width: 43.50, height: 56.35, left: 905, top: 440, position: 'absolute' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 8) && (
+                                                <div style={{ width: 43.50, height: 56.35, left: 390, top: 280, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: '0 0' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ backgroundColor: (sendSucceeded) ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 9) && (
+                                                <div style={{ width: 43.50, height: 56.35, left: 1045, top: 240, position: 'absolute', transform: 'rotate(45deg)', transformOrigin: '0 0' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 10) && (
+                                                <div style={{ width: 43.50, height: 56.35, left: 425, top: 390, position: 'absolute', transform: 'rotate(45deg)', transformOrigin: '0 0' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 18.88, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            {(sessionUsers.length > 11) && (
+                                                <div style={{ width: 43.50, height: 56.35, left: 1005, top: 435, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: '0 0' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
                                         <div style={{ width: 171, height: 46, left: 150, top: 651, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>Pick a card</div>
                                     </div>
 
@@ -842,6 +887,7 @@ function PokerPage() {
                                     <div className="member-list">
                                         <ul>
                                             <li onClick={() => { setTab("CHATROOM") }} className={`member ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
+
                                             {[...privateChats.keys()].map((name, index) => (
                                                 <li onClick={() => { setTab(name) }} className={`member ${tab === name && "active"}`} key={index}>{name}</li>
                                             ))}
@@ -881,20 +927,7 @@ function PokerPage() {
                                     </div>}
                                 </div>
                                 :
-                                <div className="register">
-                                    <input
-                                        id="user-name"
-                                        placeholder="Enter your name"
-                                        name="userName"
-                                        value={userData.username}
-                                        onChange={handleUsername}
-                                        margin="normal"
-                                        readonly
-                                        disabled="true"
-                                    />
-                                    <button type="button" onClick={registerUser}>
-                                        Connect
-                                    </button>
+                                <div>
                                 </div>}
                         </div>
                     </div>

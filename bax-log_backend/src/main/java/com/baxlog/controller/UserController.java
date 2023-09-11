@@ -75,10 +75,8 @@ public class UserController {
 			if(allUsers.get(i).getSessionID().equals(sessionID)) {
 				String name = allUsers.get(i).getName().substring(7);
 				list.add(name);
-				System.out.println(list);
 			}
-		}
-		
+		}		
 		return list;
 	}
 
