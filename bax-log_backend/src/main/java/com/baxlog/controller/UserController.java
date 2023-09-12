@@ -28,48 +28,20 @@ public class UserController {
 	public List<User> getAllUsers(){
 		return userRepository.findAll();
 	}
-
-	@PutMapping("/users/{name}")
-	public ResponseEntity<User> updateUser(@PathVariable String name, @RequestBody User userDetails ){
-		User user = new User();
-		User updatedUser = new User();
-		List<User> allUsers = getAllUsers();
-		for(int i=0; i<allUsers.size(); i++) {
-			if(allUsers.get(i).getName().equals(name)) {
-				user = allUsers.get(i);
-				user.setName(userDetails.getName());
-				user.setPickedCard(userDetails.getPickedCard());
-				user.setIsPickedCard(userDetails.getIsPickedCard());
-				user.setIsAdmin(userDetails.getIsAdmin());
-				user.setSessionID(userDetails.getSessionID());
-				updatedUser = userRepository.save(user);
-			}
-		}
-		return ResponseEntity.ok(updatedUser);
-	}
 	
-	@PutMapping("/users/reset/{sessionID}")
-	public ResponseEntity<User> resetUsers(@PathVariable String sessionID){
-		User user = new User();
-		User updatedUser = new User();
+	@GetMapping("/users/{sessionID}")
+	public JSONArray getSessionUsers(@PathVariable String sessionID){
+		JSONArray list = new JSONArray();
 		List<User> allUsers = getAllUsers();
 		for(int i=0; i<allUsers.size(); i++) {
 			if(allUsers.get(i).getSessionID().equals(sessionID)) {
-				user = allUsers.get(i);
-				user.setPickedCard("?");
-				user.setIsPickedCard("");
-				user.setIsAdmin("");
-				updatedUser = userRepository.save(user);
+				String name = allUsers.get(i).getName().substring(7);
+				list.add(name);
 			}
 		}
-		return ResponseEntity.ok(updatedUser);
+		return list;
 	}
-
-	@PostMapping("/users/save")
-	public User createUser(@RequestBody User user) {
-		return userRepository.save(user);
-	}
-
+	
 	@GetMapping("/users/usernamecheck/{name}")
 	public String checkUsername(@PathVariable String name){
 		System.out.println(name);
@@ -82,18 +54,19 @@ public class UserController {
 		}
 		return returnMessage;
 	}
-
-	@GetMapping("/users/{sessionID}")
-	public JSONArray getSessionUsers(@PathVariable String sessionID){
-		JSONArray list = new JSONArray();
+	
+	@GetMapping("/users/sendcheck/{name}")
+	public int checkSend(@PathVariable String name){
+		System.out.println(name);
+		int returnMessage = 0;
 		List<User> allUsers = getAllUsers();
 		for(int i=0; i<allUsers.size(); i++) {
-			if(allUsers.get(i).getSessionID().equals(sessionID)) {
-				String name = allUsers.get(i).getName().substring(7);
-				list.add(name);
+			if(allUsers.get(i).getName().equals(name)) {
+				returnMessage = allUsers.get(i).getSendCount();
+				System.out.println(returnMessage);
 			}
 		}
-		return list;
+		return returnMessage;
 	}
 
 	@GetMapping("/users/card/{sessionID}")
@@ -135,10 +108,58 @@ public class UserController {
 				}
 			}
 		}
-		double average = totalPoints/pointCount;
+		double average = 0.0;
+		if(pointCount == 0) {
+			average = totalPoints;
+		}
+		else{
+			average = totalPoints/pointCount;
+		}
 		list.add(average);
 		list.add(min);
 		list.add(max);
 		return list;
+	}
+
+	@PutMapping("/users/{name}")
+	public ResponseEntity<User> updateUser(@PathVariable String name, @RequestBody User userDetails ){
+		User user = new User();
+		User updatedUser = new User();
+		List<User> allUsers = getAllUsers();
+		for(int i=0; i<allUsers.size(); i++) {
+			if(allUsers.get(i).getName().equals(name)) {
+				user = allUsers.get(i);
+				user.setName(userDetails.getName());
+				user.setPickedCard(userDetails.getPickedCard());
+				user.setIsPickedCard(userDetails.getIsPickedCard());
+				user.setIsAdmin(userDetails.getIsAdmin());
+				user.setSessionID(userDetails.getSessionID());
+				user.setSendCount(userDetails.getSendCount());
+				updatedUser = userRepository.save(user);
+			}
+		}
+		return ResponseEntity.ok(updatedUser);
+	}
+	
+	@PutMapping("/users/reset/{sessionID}")
+	public ResponseEntity<User> resetUsers(@PathVariable String sessionID){
+		User user = new User();
+		User updatedUser = new User();
+		List<User> allUsers = getAllUsers();
+		for(int i=0; i<allUsers.size(); i++) {
+			if(allUsers.get(i).getSessionID().equals(sessionID)) {
+				user = allUsers.get(i);
+				user.setPickedCard("");
+				user.setIsPickedCard("");
+				user.setSendCount(0);
+				updatedUser = userRepository.save(user);
+			}
+		}
+		return ResponseEntity.ok(updatedUser);
+	}
+
+	@PostMapping("/users/save")
+	public User createUser(@RequestBody User user) {
+		return userRepository.save(user);
 	}
 }

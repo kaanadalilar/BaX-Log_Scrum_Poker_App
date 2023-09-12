@@ -28,18 +28,12 @@ public class Session {
 	@Column(name = "is_reveal")
 	private String isReveal="false";
 	
-	@Column(name = "is_time_start")
-	private String isTimeStart="false";
-	
 	@Column(name = "current_story")
 	private String currentStory ="No story selected";
-	
-	@Column(name = "is_restart")
-	private String isRestart="false";
 
 	public Session() {}
 
-	public Session(long sessionSQLid, String session_id, String session_admin, String session_admin_id, int person_count, String is_locked, String is_reveal, String is_time_start, String current_story, String is_restart) {
+	public Session(long sessionSQLid, String session_id, String session_admin, String session_admin_id, int person_count, String is_locked, String is_reveal, String current_story) {
 		super();
 		this.sessionSQLid = sessionSQLid;
 		this.sessionID = session_id;
@@ -48,9 +42,7 @@ public class Session {
 		this.personCount = person_count;
 		this.isLocked = is_locked;
 		this.isReveal = is_reveal;
-		this.isTimeStart = is_time_start;
 		this.currentStory = current_story;
-		this.isRestart = is_restart;
 	}
 
 	public long getSessionSQLid() {
@@ -109,27 +101,11 @@ public class Session {
 		this.isReveal = isReveal;
 	}
 
-	public String getIsTimeStart() {
-		return isTimeStart;
-	}
-
-	public void setIsTimeStart(String isTimeStart) {
-		this.isTimeStart = isTimeStart;
-	}
-
 	public String getCurrentStory() {
 		return currentStory;
 	}
 
 	public void setCurrentStory(String currentStory) {
 		this.currentStory = currentStory;
-	}
-
-	public String getIsRestart() {
-		return isRestart;
-	}
-
-	public void setIsRestart(String isRestart) {
-		this.isRestart = isRestart;
 	}
 }

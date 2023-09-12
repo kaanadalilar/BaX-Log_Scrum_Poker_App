@@ -183,7 +183,6 @@ function PokerPage() {
     const [open, setOpen] = useState(false);
     const [revealOpen, setRevealOpen] = useState(false);
     const [isAdminRevealed, setIsAdminRevealed] = useState("false");
-    const [isAdminStarted, setIsAdminStarted] = useState(false);
     const [currentStory, setCurrentStory] = useState("Not selected yet");
     const [statistics, setStatistics] = useState([]);
 
@@ -200,13 +199,6 @@ function PokerPage() {
         }
         else {
             setIsAdminRevealed("false");
-        }
-        let checkAdminStart = await AppService.checkSessionTime(sessionID);
-        if (checkAdminStart.data === "Started") {
-            setIsAdminStarted("true");
-        }
-        else {
-            setIsAdminStarted("false");
         }
         let selectedStory = await AppService.getStory(sessionID);
         if (!(selectedStory.data === "Not selected yet")) {
@@ -227,16 +219,23 @@ function PokerPage() {
         }
     };
 
-    const updateUserPickCard = (chPickedCard, chIsPickedCard) => {
-        let myRole = "";
-        if (userRole === "admin") {
-            myRole = "true";
-        } else {
-            myRole = "false";
+    async function updateUserPickCard(chPickedCard, chIsPickedCard) {
+        let responseSend = await AppService.getCheckSend(paramsName);
+        console.log(responseSend.data);
+        if (responseSend.data === 0) {
+            let myRole = "";
+            if (userRole === "admin") {
+                myRole = "true";
+            } else {
+                myRole = "false";
+            }
+            let user = { name: paramsName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard, isAdmin: myRole, sessionID: paramsSessionID, sendCount: 1 };
+            console.log('user => ' + JSON.stringify(user));
+            AppService.updateUser(paramsName, user);
         }
-        let user = { name: paramsName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard, isAdmin: myRole, sessionID: paramsSessionID };
-        console.log('user => ' + JSON.stringify(user));
-        AppService.updateUser(paramsName, user);
+        else {
+            alert("You have already sent your card.");
+        }
     }
 
     const THREE_MINS = 3 * 60 * 1000;
@@ -294,6 +293,8 @@ function PokerPage() {
 
     const handleRestartGame = () => {
         console.log("Game is restarted.");
+        AppService.resetSession(paramsSessionID);
+        AppService.resetUsers(paramsSessionID);
     };
 
     const [div1Clicked, setDiv1Clicked] = useState(false);
@@ -361,7 +362,7 @@ function PokerPage() {
     };
 
     const handleSendClick = () => {
-        if (sendCount === 1) {
+        if (sendCount === 5) {
             alert("You have already sent your card.");
         } else {
             if (div1Clicked) {
