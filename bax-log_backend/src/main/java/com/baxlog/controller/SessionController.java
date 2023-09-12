@@ -65,6 +65,34 @@ public class SessionController {
 		}
 		return returnMessage;
 	}
+	
+	@GetMapping("/sessions/timecheck/{sessionID}")
+	public String checkSessionTime(@PathVariable String sessionID){
+		String returnMessage = "Not started";
+		List<Session> allSessions = getAllSessions();
+		for(int i=0; i<allSessions.size(); i++) {
+			if(allSessions.get(i).getSessionID().equals(sessionID)) {
+				if(allSessions.get(i).getIsTimeStart().equals("true")) {
+					returnMessage = "Started";
+				}
+			}
+		}
+		return returnMessage;
+	}
+	
+	@GetMapping("/sessions/getstory/{sessionID}")
+	public String getStory(@PathVariable String sessionID){
+		String returnMessage = "Not selected yet";
+		List<Session> allSessions = getAllSessions();
+		for(int i=0; i<allSessions.size(); i++) {
+			if(allSessions.get(i).getSessionID().equals(sessionID)) {
+				if(!(allSessions.get(i).getCurrentStory().equals(""))) {
+					returnMessage = allSessions.get(i).getCurrentStory();
+				}
+			}
+		}
+		return returnMessage;
+	}
 
 	@PutMapping("/sessions/join/{sessionID}")
 	public ResponseEntity<Session> joinSession(@PathVariable String sessionID){
@@ -132,6 +160,70 @@ public class SessionController {
 			}
 		}
 		return ResponseEntity.ok(revealedSession);
+	}
+	
+	@PutMapping("/sessions/start/{sessionID}")
+	public ResponseEntity<Session> startSessionTime(@PathVariable String sessionID){
+		Session session = new Session();
+		Session startedSession = new Session();
+		List<Session> allSessions = getAllSessions();
+		for(int i=0; i<allSessions.size(); i++) {
+			if(allSessions.get(i).getSessionID().equals(sessionID)) {
+				allSessions.get(i).setIsTimeStart("true");
+				session.setIsTimeStart("true");
+				session.setPersonCount(allSessions.get(i).getPersonCount());
+				session.setSessionSQLid(allSessions.get(i).getSessionSQLid());
+				session.setSessionID(allSessions.get(i).getSessionID());
+				session.setSessionAdminID(allSessions.get(i).getSessionAdminID());
+				session.setSessionAdmin(allSessions.get(i).getSessionAdmin());
+				session.setIsLocked(allSessions.get(i).getIsLocked());
+				session.setIsReveal(allSessions.get(i).getIsReveal());
+				startedSession = sessionRepository.save(session);
+			}
+		}
+		return ResponseEntity.ok(startedSession);
+	}
+	
+	@PutMapping("/sessions/putstory/{sessionID}")
+	public ResponseEntity<Session> putStory(@PathVariable String sessionID, @RequestBody Session story){
+		System.out.println(story);
+		Session session = new Session();
+		Session storiedSession = new Session();
+		List<Session> allSessions = getAllSessions();
+		for(int i=0; i<allSessions.size(); i++) {
+			if(allSessions.get(i).getSessionID().equals(sessionID)) {
+				allSessions.get(i).setCurrentStory(story.getCurrentStory());
+				session.setCurrentStory(story.getCurrentStory());
+				session.setPersonCount(allSessions.get(i).getPersonCount());
+				session.setSessionSQLid(allSessions.get(i).getSessionSQLid());
+				session.setSessionID(allSessions.get(i).getSessionID());
+				session.setSessionAdminID(allSessions.get(i).getSessionAdminID());
+				session.setSessionAdmin(allSessions.get(i).getSessionAdmin());
+				session.setIsLocked(allSessions.get(i).getIsLocked());
+				session.setIsReveal(allSessions.get(i).getIsReveal());
+				session.setIsTimeStart(allSessions.get(i).getIsTimeStart());
+				storiedSession = sessionRepository.save(session);
+			}
+		}
+		return ResponseEntity.ok(storiedSession);
+	}
+	
+	@PutMapping("/sessions/reset/{sessionID}")
+	public ResponseEntity<Session> resetSession(@PathVariable String sessionID){
+		Session session = new Session();
+		Session updatedSession = new Session();
+		List<Session> allSessions = getAllSessions();
+		for(int i=0; i<allSessions.size(); i++) {
+			if(allSessions.get(i).getSessionID().equals(sessionID)) {
+				session.setCurrentStory("No story selected");
+				session.setPersonCount(12);
+				session.setIsLocked("false");
+				session.setIsReveal("false");
+				session.setIsTimeStart("false");
+				updatedSession = sessionRepository.save(session);
+			}
+		}
+		return ResponseEntity.ok(updatedSession);
 	}
 
 	@PostMapping("/sessions/save")

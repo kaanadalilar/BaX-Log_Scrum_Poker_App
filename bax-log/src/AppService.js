@@ -33,6 +33,18 @@ class AppService {
         return axios.get(SESSION_API_BASE_URL + '/revealcheck/' + sessionID);
     }
 
+    checkSessionTime(sessionID) {
+        return axios.get(SESSION_API_BASE_URL + '/timecheck/' + sessionID);
+    }
+
+    getStory(sessionID) {
+        return axios.get(SESSION_API_BASE_URL + '/getstory/' + sessionID);
+    }
+
+    getStatistics(sessionID) {
+        return axios.get(USER_API_BASE_URL + '/points/' + sessionID);
+    }
+
     getUserById(userId) {
         return axios.get(USER_API_BASE_URL + '/' + userId);
     }
@@ -72,6 +84,23 @@ class AppService {
     revealSessionCards(sessionID) {
         return axios.put(SESSION_API_BASE_URL + '/reveal/' + sessionID);
     }
+
+    startSessionTime(sessionID) {
+        return axios.put(SESSION_API_BASE_URL + '/start/' + sessionID);
+    }
+
+    putStory(sessionID, story) {
+        return axios.put(SESSION_API_BASE_URL + '/putstory/' + sessionID, story);
+    }
+
+    resetUsers(sessionID) {
+        return axios.put(USER_API_BASE_URL + '/reset/' + sessionID);
+    }
+
+    resetSession(sessionID) {
+        return axios.put(SESSION_API_BASE_URL + '/reset/' + sessionID);
+    }
+
 }
 
 export default new AppService()

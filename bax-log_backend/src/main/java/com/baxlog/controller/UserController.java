@@ -47,6 +47,23 @@ public class UserController {
 		}
 		return ResponseEntity.ok(updatedUser);
 	}
+	
+	@PutMapping("/users/reset/{sessionID}")
+	public ResponseEntity<User> resetUsers(@PathVariable String sessionID){
+		User user = new User();
+		User updatedUser = new User();
+		List<User> allUsers = getAllUsers();
+		for(int i=0; i<allUsers.size(); i++) {
+			if(allUsers.get(i).getSessionID().equals(sessionID)) {
+				user = allUsers.get(i);
+				user.setPickedCard("?");
+				user.setIsPickedCard("");
+				user.setIsAdmin("");
+				updatedUser = userRepository.save(user);
+			}
+		}
+		return ResponseEntity.ok(updatedUser);
+	}
 
 	@PostMapping("/users/save")
 	public User createUser(@RequestBody User user) {
@@ -89,6 +106,39 @@ public class UserController {
 				list.add(card);
 			}
 		}
+		return list;
+	}
+	
+	@GetMapping("/users/points/{sessionID}")
+	public JSONArray getSessionStatistics(@PathVariable String sessionID){
+		JSONArray list = new JSONArray();
+		List<User> allUsers = getAllUsers();
+		int pointCount = 0;
+		int totalPoints = 0;
+		int min = 90;
+		int max = 0;
+		for(int i=0; i<allUsers.size(); i++) {
+			if(allUsers.get(i).getSessionID().equals(sessionID)) {
+				pointCount++;
+				if (allUsers.get(i).getPickedCard().equals("?") || allUsers.get(i).getPickedCard().equals("")) {
+					pointCount--;
+				}
+				else {
+					int num = Integer.parseInt(allUsers.get(i).getPickedCard());
+					if(num < min) {
+						min = num;
+					}
+					if (num > max) {
+						max = num;
+					}
+					totalPoints += num;
+				}
+			}
+		}
+		double average = totalPoints/pointCount;
+		list.add(average);
+		list.add(min);
+		list.add(max);
 		return list;
 	}
 }
