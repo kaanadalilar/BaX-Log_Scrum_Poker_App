@@ -289,6 +289,8 @@ function PokerPage() {
         AppService.resetSession(paramsSessionID);
         AppService.resetUsers(paramsSessionID);
         setTask("Not selected yet");
+        setStartCounter(false);
+        setClickCount(0);
     };
 
     const [div1Clicked, setDiv1Clicked] = useState(false);
