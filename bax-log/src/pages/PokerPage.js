@@ -995,10 +995,10 @@ function PokerPage() {
                                             <div style={{ width: 11.22, height: 11.22, left: 4.01, top: 4.01, position: 'absolute', border: '0.80px white solid' }}></div>
                                         </div>
                                         {(userRole === "admin") && (
-                                            <div style={{ width: 867, color: 'white', fontSize: 13.46, fontFamily: 'Inter', fontWeight: '500', lineHeight: 19.23, wordWrap: 'break-word' }}> {task} </div>
+                                            <div style={{ width: 867, color: 'white', fontSize: 17, fontFamily: 'Inter', fontWeight: "bold", lineHeight: 19.23, wordWrap: 'break-word' }}> {task} </div>
                                         )}
                                         {(userRole === "guest") && (
-                                            <div style={{ width: 867, color: 'white', fontSize: 13.46, fontFamily: 'Inter', fontWeight: '500', lineHeight: 19.23, wordWrap: 'break-word' }}> {currentStory} </div>
+                                            <div style={{ width: 867, color: 'white', fontSize: 17, fontFamily: 'Inter', fontWeight: "bold", lineHeight: 19.23, wordWrap: 'break-word' }}> {currentStory} </div>
                                         )}
                                         <div style={{ width: 1, height: 5, position: 'relative' }} />
                                     </div>
