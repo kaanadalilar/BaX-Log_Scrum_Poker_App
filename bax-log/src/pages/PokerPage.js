@@ -288,6 +288,7 @@ function PokerPage() {
         console.log("Game is restarted.");
         AppService.resetSession(paramsSessionID);
         AppService.resetUsers(paramsSessionID);
+        setTask("Not selected yet");
     };
 
     const [div1Clicked, setDiv1Clicked] = useState(false);
