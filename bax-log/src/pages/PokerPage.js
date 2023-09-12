@@ -258,9 +258,6 @@ function PokerPage() {
         setClickCount(0);
     };
 
-    const handleFinish = () => {
-    };
-
     const handleLock = () => {
         AppService.lockSession(paramsSessionID);
         alert("Session locked")
@@ -270,10 +267,6 @@ function PokerPage() {
     const handleInvite = () => {
         navigator.clipboard.writeText("Join our BaX-Log session. Click the URL: http://localhost:3000/. SessionID is " + paramsSessionID);
         setOpen(true);
-    };
-
-    const handleAddTime = () => {
-        console.log("Time is added.")
     };
 
     const [viewStatistics, setViewStatistics] = useState(false);
@@ -469,7 +462,7 @@ function PokerPage() {
                                         </div>
                                         <div>
                                             {(userRole === "admin") && (
-                                                <div onClick={() => handleLock()} style={{ width: 180, height: 60, left: 1270, top: 390, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Lock the game <LockIcon sx={{ fontSize: "40px", color: "white" }}></LockIcon></div>
+                                                <div onClick={() => handleLock()} style={{ width: 180, height: 60, left: 1270, top: 550, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Lock the game <LockIcon sx={{ fontSize: "40px", color: "white" }}></LockIcon></div>
                                             )}
                                         </div>
                                         <div>
@@ -486,13 +479,8 @@ function PokerPage() {
                                                     />
                                                 </div>
                                             )}
+                                        </div>
 
-                                        </div>
-                                        <div>
-                                            {(userRole === "admin") && (
-                                                <div onClick={() => handleAddTime()} style={{ width: 180, height: 60, left: 1270, top: 550, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Add time <MoreTimeIcon sx={{ fontSize: "40px", color: "white" }}></MoreTimeIcon></div>
-                                            )}
-                                        </div>
                                         <div>
                                             {(userRole === "admin") && (
                                                 <div>
