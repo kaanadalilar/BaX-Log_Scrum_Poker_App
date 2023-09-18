@@ -34,6 +34,9 @@ export default function LandingPage() {
       } else {
         alert("Username already exists :(")
       }
+    } else if (response.data === "Session is locked") {
+
+      alert("This session is locked")
     } else if (response.data === "Session is full") {
       alert("Session is full :(")
     }

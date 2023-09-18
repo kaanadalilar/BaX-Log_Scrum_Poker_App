@@ -10,24 +10,27 @@ public class User {
 	private long userID;
 
 	@Column(name = "name")
-	private String name;
+	private String name="";
 
 	@Column(name = "picked_card")
-	private String pickedCard;
+	private String pickedCard="";
 
 	@Column(name = "is_picked_card")
-	private String isPickedCard;
+	private String isPickedCard="";
 
 	@Column(name = "is_admin")
-	private String isAdmin;
+	private String isAdmin="";
 
 	@Column(name = "session_id")
-	private String sessionID;
+	private String sessionID="";
+	
+	@Column(name = "send_count")
+	private int sendCount=0;
 
 
 	public User() {}
 
-	public User(long userID, String name, String picked_card, String is_picked_card, String is_admin, String session_id) {
+	public User(long userID, String name, String picked_card, String is_picked_card, String is_admin, String session_id, int send_count) {
 		super();
 		this.userID = userID;
 		this.name = name;
@@ -35,6 +38,7 @@ public class User {
 		this.isPickedCard = is_picked_card;
 		this.isAdmin = is_admin;
 		this.sessionID = session_id;
+		this.sendCount = send_count;
 	}
 
 	public long getUserID() {
@@ -85,5 +89,12 @@ public class User {
 		this.sessionID = sessionID;
 	}
 
+	public int getSendCount() {
+		return sendCount;
+	}
+
+	public void setSendCount(int sendCount) {
+		this.sendCount = sendCount;
+	}
 
 }

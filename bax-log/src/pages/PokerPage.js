@@ -17,6 +17,7 @@ import DateTimeDisplay from '../hooks/DateTimeDisplay';
 import AppService from '../AppService';
 import { useParams } from "react-router-dom";
 import "./PokerPage.css";
+import { Snackbar } from "@mui/material";
 
 var stompClient = null;
 
@@ -27,35 +28,35 @@ const columns = [
 ];
 
 const rows = [
-    { id: 1, status: 'Active', header: '#234', description: "After game finishes, min, max, mode and average of the story points will appear on the screen." },
-    { id: 2, status: 'Passive', header: '#235', description: "Task description will be here 2" },
-    { id: 3, status: 'Passive', header: '#236', description: "Task description will be here 3" },
-    { id: 4, status: 'Active', header: '#237', description: "Task description will be here" },
-    { id: 5, status: 'Passive', header: '#238', description: "Task description will be here" },
-    { id: 6, status: 'Passive', header: '#584', description: "Task description will be here" },
-    { id: 7, status: 'Active', header: '#239', description: "Task description will be here" },
-    { id: 8, status: 'Passive', header: '#240', description: "Task description will be here" },
-    { id: 9, status: 'Active', header: '#234', description: "Task description will be here" },
-    { id: 10, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 11, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 12, status: 'Active', header: '#234', description: "Task description will be here" },
-    { id: 13, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 14, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 15, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 16, status: 'Active', header: '#234', description: "Task description will be here" },
-    { id: 17, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 18, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 19, status: 'Active', header: '#234', description: "Task description will be here" },
-    { id: 20, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 21, status: 'Active', header: '#234', description: "Task description will be here" },
-    { id: 23, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 24, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 25, status: 'Active', header: '#234', description: "Task description will be here" },
-    { id: 26, status: 'Passive', header: '#584', description: "Task description will be here" },
-    { id: 27, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 28, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 29, status: 'Passive', header: '#234', description: "Task description will be here" },
-    { id: 30, status: 'Passive', header: '#234', description: "Task description will be here" },
+    { id: 1, status: 'Active', header: '#210', description: "After game finishes, min, max, mode and average of the story points will appear on the screen." },
+    { id: 2, status: 'Passive', header: '#211', description: "Complete customer screen analysis." },
+    { id: 3, status: 'Passive', header: '#212', description: "Update SQL database with tasks." },
+    { id: 4, status: 'Active', header: '#213', description: "Complete database analysis." },
+    { id: 5, status: 'Passive', header: '#214', description: "Under 'create a session' option, user can select the story point type." },
+    { id: 6, status: 'Passive', header: '#215', description: "Admin can determine the session ID and name." },
+    { id: 7, status: 'Active', header: '#216', description: "User can join a session from the landing page, next to the create session section." },
+    { id: 8, status: 'Passive', header: '#217', description: "User should enter the correct session ID and name credentials." },
+    { id: 9, status: 'Active', header: '#218', description: "Selected task description will appear on the top of the poker table section." },
+    { id: 10, status: 'Passive', header: '#219', description: "Any user can create a session with a desired session ID. (Duplicated session ID's are not allowed at the same time.)" },
+    { id: 11, status: 'Passive', header: '#220', description: "A user can choose a story point for a task." },
+    { id: 12, status: 'Active', header: '#221', description: "Integrating front-end and back-end environment together." },
+    { id: 13, status: 'Passive', header: '#222', description: "User can join a session from the landing page with the session ID and name credentials." },
+    { id: 14, status: 'Passive', header: '#223', description: "The Min and Max story points should be shown with emphasis." },
+    { id: 15, status: 'Passive', header: '#224', description: "After session creator finishes the evaluation, everybody can see the given points." },
+    { id: 16, status: 'Active', header: '#225', description: "Alphabetic characters in session ID is not allowed." },
+    { id: 17, status: 'Passive', header: '#226', description: "You should fill the required areas." },
+    { id: 18, status: 'Passive', header: '#227', description: "After game finishes, admin can restart the game." },
+    { id: 19, status: 'Active', header: '#228', description: "After game finishes, all users can see story points given by other users." },
+    { id: 20, status: 'Passive', header: '#229', description: "Admin can finish the game and reveal the cards whenever he/she decide." },
+    { id: 21, status: 'Active', header: '#230', description: "Admin can discard the user from the game." },
+    { id: 23, status: 'Passive', header: '#231', description: "Admin can lock the game, after then no more participants can join." },
+    { id: 24, status: 'Passive', header: '#232', description: "User can see the remaining time to give a story point." },
+    { id: 25, status: 'Active', header: '#233', description: "The user's icon with min points will be covered with red, and the user's icon with max points will be covered with blue." },
+    { id: 26, status: 'Passive', header: '#234', description: "All participants will appear around the table with their icons and names." },
+    { id: 27, status: 'Passive', header: '#235', description: "In the beginning of the game, all cards will be identical." },
+    { id: 28, status: 'Passive', header: '#236', description: "Non-existent session ID in joining session is not allowed." },
+    { id: 29, status: 'Passive', header: '#237', description: "Duplicate session ID is not allowed. 'This session ID is used.'" },
+    { id: 30, status: 'Passive', header: '#238', description: "Submissions with empty selections will be considered as '?'" },
 ];
 
 function PokerPage() {
@@ -63,6 +64,7 @@ function PokerPage() {
     const [publicChats, setPublicChats] = useState([]);
     const [tab, setTab] = useState("CHATROOM");
     const [sessionUsers, setSessionUsers] = useState([]);
+    const [sessionUsersCards, setSessionUsersCards] = useState([]);
     const [userData, setUserData] = useState({
         username: '',
         receivername: '',
@@ -99,7 +101,6 @@ function PokerPage() {
                 if (!privateChats.get(payloadData.senderName)) {
                     privateChats.set(payloadData.senderName, []);
                     setPrivateChats(new Map(privateChats));
-                    setSessionUsers(new Map(privateChats));
                 }
                 break;
             case "MESSAGE":
@@ -136,7 +137,7 @@ function PokerPage() {
         if (stompClient) {
             var chatMessage = {
                 senderName: userData.username,
-                message: userData.message, //yeni katılan kişinin adını admin otomatik yollasın
+                message: userData.message,  // new participant's name will be sent automatically
                 status: "MESSAGE"
             };
             console.log(chatMessage);
@@ -177,33 +178,64 @@ function PokerPage() {
     const userRole = params.role;
     const paramsSessionID = params.sessionID;
     const paramsName = params.name;
+    userData.username = params.name;
     const [sendCount, setSendCount] = useState(0);
-    userData.username = params.name; //Connect feature
+    const [open, setOpen] = useState(false);
+    const [revealOpen, setRevealOpen] = useState(false);
+    const [isAdminRevealed, setIsAdminRevealed] = useState("false");
+    const [currentStory, setCurrentStory] = useState("Not selected yet");
+    const [statistics, setStatistics] = useState([]);
 
     async function fillPokerTable(sessionID) {
-        let response = await AppService.getSessionUsers(sessionID);
-        setSessionUsers(response.data);
+        let userResponse = await AppService.getSessionUsers(sessionID);
+        setSessionUsers(userResponse.data);
+        let cardResponse = await AppService.getSessionUsersCards(sessionID);
+        setSessionUsersCards(cardResponse.data);
+        let checkAdminReveal = await AppService.checkSessionRevealCard(sessionID);
+        if (checkAdminReveal.data === "Reveal") {
+            setIsAdminRevealed("true");
+            let responseStats = await AppService.getStatistics(sessionID);
+            setStatistics(responseStats.data);
+        }
+        else {
+            setIsAdminRevealed("false");
+        }
+        let selectedStory = await AppService.getStory(sessionID);
+        if (!(selectedStory.data === "Not selected yet")) {
+            setCurrentStory(selectedStory.data);
+        }
     }
 
     useEffect(() => {
         fillPokerTable(paramsSessionID);
     }, [userData, [privateChats]]);
 
-    const [task, setTask] = useState('');
+    const [task, setTask] = useState("Not selected yet");
     const handleRowClick = (params) => {
-        setTask(`${params.row.description}`);
+        if (userRole === "admin") {
+            setTask(`${params.row.description}`);
+            let session = { sessionID: "", sessionAdmin: "", sessionAdminID: "", personCount: 0, isLocked: "", isReveal: "", isTimeStart: "", currentStory: task };
+            AppService.putStory(paramsSessionID, session);
+        }
     };
 
-    const updateUserPickCard = (chPickedCard, chIsPickedCard) => {
-        let myRole = "";
-        if (userRole === "admin") {
-            myRole = "true";
-        } else {
-            myRole = "false";
+    async function updateUserPickCard(chPickedCard, chIsPickedCard) {
+        let responseSend = await AppService.getCheckSend(paramsName);
+        console.log(responseSend.data);
+        if (responseSend.data === 0) {
+            let myRole = "";
+            if (userRole === "admin") {
+                myRole = "true";
+            } else {
+                myRole = "false";
+            }
+            let user = { name: paramsName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard, isAdmin: myRole, sessionID: paramsSessionID, sendCount: 1 };
+            console.log('user => ' + JSON.stringify(user));
+            AppService.updateUser(paramsName, user);
         }
-        let user = { name: paramsName, pickedCard: chPickedCard, isPickedCard: chIsPickedCard, isAdmin: myRole };
-        console.log('user => ' + JSON.stringify(user));
-        AppService.updateUser(paramsName, user);
+        else {
+            alert("You have already sent your card.");
+        }
     }
 
     const THREE_MINS = 3 * 60 * 1000;
@@ -226,27 +258,39 @@ function PokerPage() {
         setClickCount(0);
     };
 
-    const handleFinish = () => {
-    };
-
     const handleLock = () => {
+        AppService.lockSession(paramsSessionID);
+        alert("Session locked")
         console.log("Game is locked.")
     };
 
     const handleInvite = () => {
-        console.log("Player is invited.")
+        navigator.clipboard.writeText("Join our BaX-Log session. Click the URL: http://localhost:3000/. SessionID is " + paramsSessionID);
+        setOpen(true);
     };
 
-    const handleAddTime = () => {
-        console.log("Time is added.")
-    };
-
+    const [viewStatistics, setViewStatistics] = useState(false);
+    async function getDBStatistics(sessionID) {
+        let responseStats = await AppService.getStatistics(sessionID);
+        setStatistics(responseStats.data);
+        setViewStatistics(true);
+    }
     const handleRevealCards = () => {
-        console.log("Cards revealed.")
+        console.log("Cards revealed.");
+        AppService.revealSessionCards(paramsSessionID);
+        setRevealOpen(true);
+        setIsAdminRevealed("true");
+        getDBStatistics(paramsSessionID);
+        console.log(statistics);
     };
 
     const handleRestartGame = () => {
-        console.log("Game is restarted.")
+        console.log("Game is restarted.");
+        AppService.resetSession(paramsSessionID);
+        AppService.resetUsers(paramsSessionID);
+        setTask("Not selected yet");
+        setStartCounter(false);
+        setClickCount(0);
     };
 
     const [div1Clicked, setDiv1Clicked] = useState(false);
@@ -260,7 +304,6 @@ function PokerPage() {
     const [div55Clicked, setDiv55Clicked] = useState(false);
     const [div89Clicked, setDiv89Clicked] = useState(false);
     const [divQMClicked, setDivQMClicked] = useState(false);
-    const [sendSucceeded, setSendSucceeded] = useState(false);
 
     const handleDivClick = (divId) => {
         setDiv1Clicked(false);
@@ -315,12 +358,11 @@ function PokerPage() {
     };
 
     const handleSendClick = () => {
-        if (sendCount === 1) {
+        if (sendCount === 5) {
             alert("You have already sent your card.");
         } else {
             if (div1Clicked) {
                 updateUserPickCard("1", "true");
-                setSendSucceeded(true);
                 setSendCount((c) => c + 1);
             }
             else if (div2Clicked) {
@@ -423,24 +465,79 @@ function PokerPage() {
                                         </div>
                                         <div>
                                             {(userRole === "admin") && (
-                                                <div onClick={() => handleLock()} style={{ width: 180, height: 60, left: 1270, top: 390, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Lock the game <LockIcon sx={{ fontSize: "40px", color: "white" }}></LockIcon></div>
+                                                <div onClick={() => handleLock()} style={{ width: 180, height: 60, left: 1270, top: 550, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Lock the game <LockIcon sx={{ fontSize: "40px", color: "white" }}></LockIcon></div>
                                             )}
                                         </div>
                                         <div>
                                             {(userRole === "admin") && (
-                                                <div onClick={() => handleInvite()} style={{ width: 180, height: 60, left: 1270, top: 470, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Invite people <PersonAddIcon sx={{ fontSize: "40px", color: "white" }}></PersonAddIcon></div>
+                                                <div>
+                                                    <div onClick={() => handleInvite()} style={{ width: 180, height: 60, left: 1270, top: 470, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Invite people <PersonAddIcon sx={{ fontSize: "40px", color: "white" }}>
+                                                    </PersonAddIcon> </div>
+                                                    <Snackbar
+                                                        message="Invite message is copied"
+                                                        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                                                        autoHideDuration={2000}
+                                                        onClose={() => setOpen(false)}
+                                                        open={open}
+                                                    />
+                                                </div>
                                             )}
                                         </div>
+
                                         <div>
                                             {(userRole === "admin") && (
-                                                <div onClick={() => handleAddTime()} style={{ width: 180, height: 60, left: 1270, top: 550, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Add time <MoreTimeIcon sx={{ fontSize: "40px", color: "white" }}></MoreTimeIcon></div>
+                                                <div>
+                                                    <div onClick={() => handleRevealCards()} style={{ width: 180, height: 60, left: 1270, top: 630, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', paddingLeft: '3px', justifyContent: 'left', alignItems: 'center' }}>Reveal cards <RevealCard /></div>
+                                                    <Snackbar
+                                                        message="Cards are revealed"
+                                                        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                                                        autoHideDuration={2000}
+                                                        onClose={() => setRevealOpen(false)}
+                                                        open={revealOpen}
+                                                    />
+                                                </div>
                                             )}
                                         </div>
-                                        <div>
-                                            {(userRole === "admin") && (
-                                                <div onClick={() => handleRevealCards()} style={{ width: 180, height: 60, left: 1270, top: 630, position: 'absolute', textAlign: 'center', backgroundColor: "green", color: 'white', fontSize: 21, fontFamily: 'Inter', fontWeight: '600', wordWrap: 'break-word', border: "2px solid #ebebeb", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderBottomRightRadius: 30, borderBottomLeftRadius: 30, display: 'flex', paddingLeft: '3px', justifyContent: 'left', alignItems: 'center' }}>Reveal cards <RevealCard /></div>
-                                            )}
-                                        </div>
+
+                                        {(isAdminRevealed === "true") && (
+                                            <div>
+                                                <div style={{ width: 95.52, height: 25.26, left: 10, top: 295, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Average</div>
+                                                <div style={{ width: 43.50, height: 56.35, left: 30, top: 330, position: 'absolute', transform: 'rotate(0deg)', transformOrigin: '0 0' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ backgroundColor: "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: -1, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            <div>{statistics[0]}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                                <div style={{ width: 95.52, height: 25.26, left: 5, top: 395, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Min</div>
+                                                <div style={{ width: 43.50, height: 56.35, left: 30, top: 430, position: 'absolute', transform: 'rotate(0deg)', transformOrigin: '0 0' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ backgroundColor: "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: -1, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            <div>{statistics[1]}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                                <div style={{ width: 95.52, height: 25.26, left: 5, top: 495, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word' }}>Max</div>
+                                                <div style={{ width: 43.50, height: 56.35, left: 30, top: 530, position: 'absolute', transform: 'rotate(0deg)', transformOrigin: '0 0' }}>
+                                                    <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
+                                                        <div style={{ backgroundColor: "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: -1, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            <div>{statistics[2]}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
+                                                        <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
+                                                    </div>
+                                                </div>
+                                            </div>)}
 
                                         <div style={{ width: 60.33, height: 57.48, left: 205, top: 330, position: 'absolute' }}> <AccountCircleIcon sx={{ fontSize: "60px", color: "white" }}></AccountCircleIcon></div>
 
@@ -580,8 +677,10 @@ function PokerPage() {
 
                                         <div style={{ width: 43.50, height: 56.35, left: 420, top: 330, position: 'absolute', transform: 'rotate(90deg)', transformOrigin: '0 0' }}>
                                             <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                <div style={{ width: 19, height: 19, left: 0, top: -1, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                <div style={{ backgroundColor: !(sessionUsersCards[0] === "") && (isAdminRevealed === "false") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                <div style={{ width: 19, height: 19, left: 0, top: -1, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                    {isAdminRevealed === "true" ? sessionUsersCards[0] : <div>A</div>}
+                                                </div>
                                             </div>
                                             <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                 <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -592,8 +691,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 1) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 1050, top: 375, position: 'absolute', transform: 'rotate(-90deg)', transformOrigin: '0 0' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: -1, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[1] === "") && (isAdminRevealed === "false") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: -1, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[1] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -606,9 +707,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 2) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 715, top: 220, position: 'absolute' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
-
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[2] === "") && (isAdminRevealed === "false") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[2] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -621,8 +723,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 3) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 715, top: 440, position: 'absolute' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[3] === "") && (isAdminRevealed === "false") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[3] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -635,8 +739,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 4) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 520, top: 220, position: 'absolute' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[4] === "") && (isAdminRevealed === "false") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[4] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -649,8 +755,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 5) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 520, top: 440, position: 'absolute' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[5] === "") && (isAdminRevealed === "false") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[5] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -663,8 +771,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 6) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 905, top: 220, position: 'absolute' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[6] === "") && (isAdminRevealed === "false") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[6] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -677,8 +787,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 7) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 905, top: 440, position: 'absolute' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[7] === "") && (isAdminRevealed === "false") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[7] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -691,8 +803,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 8) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 390, top: 280, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: '0 0' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ backgroundColor: (sendSucceeded) ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[8] === "") && (isAdminRevealed === "false") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[8] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -705,8 +819,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 9) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 1045, top: 240, position: 'absolute', transform: 'rotate(45deg)', transformOrigin: '0 0' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[9] === "") && (isAdminRevealed === "false") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[9] : <div>A</div>}
+                                                        </div>
 
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
@@ -720,8 +836,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 10) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 425, top: 390, position: 'absolute', transform: 'rotate(45deg)', transformOrigin: '0 0' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 18.88, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[10] === "") && (isAdminRevealed === "false") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 18.88, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[2] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -734,8 +852,10 @@ function PokerPage() {
                                             {(sessionUsers.length > 11) && (
                                                 <div style={{ width: 43.50, height: 56.35, left: 1005, top: 435, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: '0 0' }}>
                                                     <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute' }}>
-                                                        <div style={{ width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', background: '#F2F2F2', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
-                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 30, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>A</div>
+                                                        <div style={{ backgroundColor: !(sessionUsersCards[11] === "") && (isAdminRevealed === "false") ? 'rgba(255, 0, 0, 0.8)' : "white", width: 43.50, height: 56.35, left: 0, top: 0, position: 'absolute', boxShadow: '0px 5px 34px rgba(0, 0, 0, 0.10)', border: '0.50px #D2D2D2 solid' }} />
+                                                        <div style={{ width: 19, height: 19, left: 0, top: 0.45, position: 'absolute', textAlign: 'center', color: '#F24822', fontSize: 19, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word' }}>
+                                                            {isAdminRevealed === "true" ? sessionUsersCards[11] : <div>A</div>}
+                                                        </div>
                                                     </div>
                                                     <div style={{ width: 26, height: 34, left: 18, top: 30, position: 'absolute' }}>
                                                         <div style={{ width: 24, height: 24, left: 1, top: 0, position: 'absolute', background: '#F24822' }}></div>
@@ -874,61 +994,16 @@ function PokerPage() {
                                         <div style={{ width: 19.23, height: 19.23, position: 'relative' }}>
                                             <div style={{ width: 11.22, height: 11.22, left: 4.01, top: 4.01, position: 'absolute', border: '0.80px white solid' }}></div>
                                         </div>
-                                        <div style={{ width: 867, color: 'white', fontSize: 13.46, fontFamily: 'Inter', fontWeight: '500', lineHeight: 19.23, wordWrap: 'break-word' }}> {task} </div>
+                                        {(userRole === "admin") && (
+                                            <div style={{ width: 867, color: 'white', fontSize: 17, fontFamily: 'Inter', fontWeight: "bold", lineHeight: 19.23, wordWrap: 'break-word' }}> {task} </div>
+                                        )}
+                                        {(userRole === "guest") && (
+                                            <div style={{ width: 867, color: 'white', fontSize: 17, fontFamily: 'Inter', fontWeight: "bold", lineHeight: 19.23, wordWrap: 'break-word' }}> {currentStory} </div>
+                                        )}
                                         <div style={{ width: 1, height: 5, position: 'relative' }} />
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="container">
-                            {userData.connected ?
-                                <div className="chat-box">
-                                    <div className="member-list">
-                                        <ul>
-                                            <li onClick={() => { setTab("CHATROOM") }} className={`member ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
-
-                                            {[...privateChats.keys()].map((name, index) => (
-                                                <li onClick={() => { setTab(name) }} className={`member ${tab === name && "active"}`} key={index}>{name}</li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                    {tab === "CHATROOM" && <div className="chat-content">
-                                        <ul className="chat-messages">
-                                            {publicChats.map((chat, index) => (
-                                                <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                                                    {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
-                                                    <div className="message-data">{chat.message}</div>
-                                                    {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
-                                                </li>
-                                            ))}
-                                        </ul>
-
-                                        <div className="send-message">
-                                            <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} />
-                                            <button type="button" className="send-button" onClick={sendValue}>send</button>
-                                        </div>
-                                    </div>}
-                                    {tab !== "CHATROOM" && <div className="chat-content">
-                                        <ul className="chat-messages">
-                                            {[...privateChats.get(tab)].map((chat, index) => (
-                                                <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                                                    {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
-                                                    <div className="message-data">{chat.message}</div>
-                                                    {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
-                                                </li>
-                                            ))}
-                                        </ul>
-
-                                        <div className="send-message">
-                                            <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} />
-                                            <button type="button" className="send-button" onClick={sendPrivateValue}>send</button>
-                                        </div>
-                                    </div>}
-                                </div>
-                                :
-                                <div>
-                                </div>}
                         </div>
                     </div>
                 </Row>

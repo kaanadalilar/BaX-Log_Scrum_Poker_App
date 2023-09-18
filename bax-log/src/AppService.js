@@ -29,13 +29,33 @@ class AppService {
         return axios.get(SESSION_API_BASE_URL + '/createcheck/' + sessionID);
     }
 
+    checkSessionRevealCard(sessionID) {
+        return axios.get(SESSION_API_BASE_URL + '/revealcheck/' + sessionID);
+    }
+
+    getStory(sessionID) {
+        return axios.get(SESSION_API_BASE_URL + '/getstory/' + sessionID);
+    }
+
+    getCheckSend(name) {
+        return axios.get(USER_API_BASE_URL + '/sendcheck/' + name);
+    }
+
+    getStatistics(sessionID) {
+        return axios.get(USER_API_BASE_URL + '/points/' + sessionID);
+    }
+
     getUserById(userId) {
         return axios.get(USER_API_BASE_URL + '/' + userId);
     }
 
     getSessionUsers(sessionID) {
         return axios.get(USER_API_BASE_URL + '/' + sessionID);
-    } //BURAYI POKER PAGE İÇİN KULLAN
+    }
+
+    getSessionUsersCards(sessionID) {
+        return axios.get(USER_API_BASE_URL + '/card/' + sessionID);
+    }
 
     deleteUser(userId) {
         return axios.delete(USER_API_BASE_URL + '/' + userId);
@@ -56,6 +76,27 @@ class AppService {
     checkUsernameExists(name) {
         return axios.get(USER_API_BASE_URL + '/usernamecheck/' + name);
     }
+
+    lockSession(sessionID) {
+        return axios.put(SESSION_API_BASE_URL + '/lock/' + sessionID);
+    }
+
+    revealSessionCards(sessionID) {
+        return axios.put(SESSION_API_BASE_URL + '/reveal/' + sessionID);
+    }
+
+    putStory(sessionID, story) {
+        return axios.put(SESSION_API_BASE_URL + '/putstory/' + sessionID, story);
+    }
+
+    resetUsers(sessionID) {
+        return axios.put(USER_API_BASE_URL + '/reset/' + sessionID);
+    }
+
+    resetSession(sessionID) {
+        return axios.put(SESSION_API_BASE_URL + '/reset/' + sessionID);
+    }
+
 }
 
 export default new AppService()
